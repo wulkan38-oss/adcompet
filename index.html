@@ -7,26 +7,27 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --accent: #2563EB;
-    --accent-light: #EFF6FF;
-    --accent-mid: #93C5FD;
-    --dark: #0F172A;
-    --mid: #334155;
-    --muted: #64748B;
-    --border: #E2E8F0;
-    --bg: #F8FAFC;
-    --white: #FFFFFF;
-    --green: #10B981;
-    --orange: #F59E0B;
-    --red: #EF4444;
-    --purple: #8B5CF6;
-    --tg: #229ED9;
-    --vk: #0077FF;
-    --yt: #FF0000;
-    --ru: #0044BB;
-    --radius: 12px;
-    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.04);
-    --shadow-md: 0 4px 24px rgba(0,0,0,.1);
+    --bg:        #F4F6FA;
+    --bg2:       #FFFFFF;
+    --bg3:       #F0F2F7;
+    --border:    #E2E6EF;
+    --white:     #FFFFFF;
+    --text:      #1A2035;
+    --muted:     #6B7494;
+    --accent:    #2B6CE6;
+    --accent2:   #5B4FF5;
+    --green:     #10A96E;
+    --orange:    #F07020;
+    --red:       #DC3545;
+    --yellow:    #E8A800;
+    --purple:    #7C5CBF;
+    --tg:        #0A95C8;
+    --vk:        #2C5DE5;
+    --yt:        #CC1F1F;
+    --ru:        #3A5FCC;
+    --radius:    12px;
+    --shadow:    0 2px 8px rgba(26,32,53,.08);
+    --shadow-md: 0 4px 24px rgba(26,32,53,.12);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,14 +35,14 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
     background: var(--bg);
-    color: var(--dark);
+    color: var(--text);
     font-size: 14px;
     line-height: 1.6;
   }
 
   /* HEADER */
   .header {
-    background: var(--white);
+    background: var(--bg2);
     border-bottom: 1px solid var(--border);
     padding: 0 32px;
     position: sticky;
@@ -55,17 +56,12 @@
   .header-logo {
     font-size: 16px;
     font-weight: 700;
-    color: var(--dark);
+    color: var(--text);
     letter-spacing: -0.5px;
     white-space: nowrap;
   }
   .header-logo span { color: var(--accent); }
-  .nav {
-    display: flex;
-    gap: 2px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
+  .nav { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
   .nav::-webkit-scrollbar { display: none; }
   .nav-btn {
     padding: 6px 14px;
@@ -79,289 +75,239 @@
     white-space: nowrap;
     transition: all .15s;
   }
-  .nav-btn:hover { background: var(--bg); color: var(--dark); }
-  .nav-btn.active { background: var(--accent-light); color: var(--accent); }
-  .header-meta {
-    margin-left: auto;
-    font-size: 12px;
-    color: var(--muted);
-    white-space: nowrap;
-  }
+  .nav-btn:hover { background: var(--bg3); color: var(--text); }
+  .nav-btn.active { background: rgba(43,108,230,.1); color: var(--accent); }
+  .header-meta { margin-left: auto; font-size: 12px; color: var(--muted); white-space: nowrap; }
 
   /* LAYOUT */
   .main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
   .section { display: none; }
   .section.active { display: block; }
 
-  /* HERO STATS */
-  .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 32px;
-  }
+  /* KPI HERO */
+  .hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 32px; }
   .stat-card {
-    background: var(--white);
+    background: var(--bg2);
     border-radius: var(--radius);
     padding: 20px 24px;
-    box-shadow: var(--shadow);
     border: 1px solid var(--border);
   }
-  .stat-card .label {
-    font-size: 12px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .5px;
-    margin-bottom: 8px;
+  .stat-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 8px; }
+  .stat-card .value { font-size: 26px; font-weight: 700; color: var(--text); letter-spacing: -1px; }
+  .stat-card .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* BIG KPI */
+  .kpi-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi-big {
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
   }
-  .stat-card .value {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--dark);
-    letter-spacing: -1px;
+  .kpi-big::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    opacity: .07;
+    background: currentColor;
   }
-  .stat-card .sub {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
+  .kpi-big.blue  { background: rgba(43,108,230,.07); border: 1px solid rgba(43,108,230,.2); color: var(--accent); }
+  .kpi-big.green { background: rgba(16,169,110,.07); border: 1px solid rgba(16,169,110,.2); color: var(--green); }
+  .kpi-big.orange{ background: rgba(240,112,32,.07);  border: 1px solid rgba(240,112,32,.2);  color: var(--orange); }
+  .kpi-big .kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; opacity: .7; margin-bottom: 10px; }
+  .kpi-big .kpi-num { font-size: 42px; font-weight: 800; letter-spacing: -2px; line-height: 1; }
+  .kpi-big .kpi-desc { font-size: 12px; color: var(--muted); margin-top: 8px; }
 
   /* GRID */
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-  .col-span-2 { grid-column: span 2; }
 
   /* CARD */
   .card {
-    background: var(--white);
+    background: var(--bg2);
     border-radius: var(--radius);
     padding: 24px;
-    box-shadow: var(--shadow);
     border: 1px solid var(--border);
     margin-bottom: 20px;
   }
-  .card-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 4px;
-  }
-  .card-sub {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
+  .card-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .card-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
 
-  /* INSIGHT BOX */
+  /* INSIGHT */
   .insight {
-    background: var(--accent-light);
+    background: rgba(43,108,230,.05);
     border-left: 3px solid var(--accent);
     border-radius: 0 8px 8px 0;
     padding: 14px 16px;
     margin-top: 16px;
   }
-  .insight-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .6px;
-    color: var(--accent);
-    margin-bottom: 6px;
-  }
-  .insight p { font-size: 13px; color: var(--mid); line-height: 1.7; }
+  .insight-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--accent); margin-bottom: 6px; }
+  .insight p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .insight p strong { color: var(--text); }
 
-  /* BRAND TABLE */
+  /* TABLE */
   .brand-table { width: 100%; border-collapse: collapse; }
-  .brand-table th {
-    text-align: left;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .4px;
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border);
-  }
-  .brand-table td {
-    padding: 10px 12px;
-    font-size: 13px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle;
-  }
+  .brand-table th { text-align: left; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .brand-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; color: var(--text); }
   .brand-table tr:last-child td { border-bottom: none; }
-  .brand-table tr:hover td { background: var(--bg); }
+  .brand-table tr:hover td { background: var(--bg3); }
   .brand-name { font-weight: 600; }
-  .brand-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 600;
-    background: var(--accent-light);
-    color: var(--accent);
-  }
-  .brand-badge.china { background: #FFF7ED; color: #C2410C; }
-  .brand-badge.ru { background: #F0FDF4; color: #15803D; }
-
-  /* SHARE BAR */
-  .share-bar {
-    height: 6px;
-    background: var(--border);
-    border-radius: 3px;
-    overflow: hidden;
-    min-width: 80px;
-  }
-  .share-bar-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 3px;
-    transition: width .3s;
-  }
-  .share-bar-fill.exeed { background: #2563EB; }
-  .share-bar-fill.lada { background: #10B981; }
-  .share-bar-fill.haval { background: #F59E0B; }
-  .share-bar-fill.omoda { background: #8B5CF6; }
-  .share-bar-fill.jaecoo { background: #EF4444; }
-  .share-bar-fill.ora { background: #EC4899; }
+  .brand-badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+  .brand-badge.china { background: rgba(240,112,32,.1); color: var(--orange); }
+  .brand-badge.ru    { background: rgba(16,169,110,.1); color: var(--green); }
+  .share-bar { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; min-width: 80px; }
+  .share-bar-fill { height: 100%; border-radius: 3px; }
 
   /* PLATFORM PILLS */
-  .platform-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 3px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  .pill-tg { background: #E8F4FD; color: var(--tg); }
-  .pill-vk { background: #E8F0FF; color: var(--vk); }
-  .pill-yt { background: #FFF0F0; color: var(--yt); }
-  .pill-ru { background: #E8F0FF; color: var(--ru); }
+  .platform-pill { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .pill-tg { background: rgba(10,149,200,.1); color: var(--tg); }
+  .pill-vk { background: rgba(44,93,229,.1); color: var(--vk); }
+  .pill-yt { background: rgba(204,31,31,.1); color: var(--yt); }
+  .pill-ru { background: rgba(58,95,204,.1); color: var(--ru); }
 
   /* POST CARDS */
-  .post-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
-  .post-card {
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px;
-    transition: box-shadow .15s;
-  }
-  .post-card:hover { box-shadow: var(--shadow-md); }
+  .post-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 16px; }
+  .post-card { border: 1px solid var(--border); border-radius: 10px; padding: 14px; background: var(--bg2); transition: border-color .15s; }
+  .post-card:hover { border-color: var(--accent); }
   .post-platform { margin-bottom: 8px; }
-  .post-channel { font-size: 12px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
-  .post-text {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 10px;
-  }
-  .post-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    color: var(--muted);
-  }
-  .post-link {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 12px;
-  }
+  .post-channel { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .post-text { font-size: 12px; color: var(--muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 10px; }
+  .post-meta { display: flex; justify-content: space-between; align-items: center; }
+  .post-link { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 12px; }
   .post-link:hover { text-decoration: underline; }
-  .post-views { font-size: 11px; color: var(--muted); }
 
   /* BRAND TABS */
   .brand-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
-  .brand-tab {
-    padding: 6px 14px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    background: var(--white);
-    color: var(--mid);
-    transition: all .15s;
-  }
+  .brand-tab { padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; background: var(--bg2); color: var(--muted); transition: all .15s; }
   .brand-tab:hover { border-color: var(--accent); color: var(--accent); }
-  .brand-tab.active { background: var(--accent); color: var(--white); border-color: var(--accent); }
+  .brand-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
   .brand-detail { display: none; }
   .brand-detail.active { display: block; }
 
-  /* CHART CONTAINER */
+  /* CHARTS */
   .chart-wrap { position: relative; }
   .chart-wrap canvas { max-height: 320px; }
   .chart-wrap.tall canvas { max-height: 420px; }
   .chart-wrap.small canvas { max-height: 220px; }
 
   /* PLATFORM BLOCKS */
-  .platform-blocks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-  .platform-block {
-    border-radius: 10px;
-    padding: 16px;
-    text-align: center;
-  }
+  .platform-blocks { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
+  .platform-block { border-radius: 10px; padding: 16px; text-align: center; }
   .platform-block .p-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
   .platform-block .p-budget { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
   .platform-block .p-share { font-size: 12px; opacity: .7; margin-top: 2px; }
   .platform-block .p-posts { font-size: 11px; opacity: .6; margin-top: 6px; }
-  .pb-tg { background: #E8F4FD; color: #0B6A9E; }
-  .pb-vk { background: #E8F0FF; color: #004FAA; }
-  .pb-yt { background: #FFF0F0; color: #B91C1C; }
-  .pb-ru { background: #EEF2FF; color: #3730A3; }
+  .pb-tg { background: rgba(10,149,200,.07); color: var(--tg); border: 1px solid rgba(10,149,200,.2); }
+  .pb-vk { background: rgba(44,93,229,.07); color: var(--vk); border: 1px solid rgba(44,93,229,.2); }
+  .pb-yt { background: rgba(204,31,31,.07); color: var(--yt); border: 1px solid rgba(204,31,31,.2); }
+  .pb-ru { background: rgba(58,95,204,.07); color: var(--ru); border: 1px solid rgba(58,95,204,.2); }
 
-  /* MONTHLY TABLE */
+  /* MONTH TABLE */
   .month-table { width: 100%; border-collapse: collapse; }
-  .month-table th, .month-table td {
-    padding: 10px 14px;
-    text-align: right;
-    font-size: 13px;
-    border-bottom: 1px solid var(--border);
-  }
+  .month-table th, .month-table td { padding: 10px 14px; text-align: right; font-size: 13px; border-bottom: 1px solid var(--border); color: var(--text); }
   .month-table th { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; }
   .month-table td:first-child, .month-table th:first-child { text-align: left; }
   .month-table .total-row td { font-weight: 700; border-top: 2px solid var(--border); border-bottom: none; }
 
-  /* CATEGORY TAG */
-  .cat-tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    background: var(--bg);
-    color: var(--mid);
-    margin: 3px;
-  }
-
-  /* NUMBER FORMAT */
-  .num { font-variant-numeric: tabular-nums; }
+  /* CAT TAG */
+  .cat-tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 12px; background: var(--bg3); color: var(--muted); margin: 3px; border: 1px solid var(--border); }
 
   /* DIVIDER */
   .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
 
   /* SECTION HEADER */
   .section-header { margin-bottom: 24px; }
-  .section-header h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+  .section-header h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
   .section-header p { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+  /* MARKET MAP */
+  .mmap-strip { display: flex; width: 100%; height: 40px; border-radius: 8px; overflow: hidden; gap: 2px; margin-bottom: 20px; }
+  .mmap-seg { height: 100%; transition: filter .15s; cursor: default; flex-shrink: 1; min-width: 0; }
+  .mmap-seg:hover { filter: brightness(.88); }
+  .mmap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .mmap-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--border); }
+  .mmap-swatch { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .mmap-info { min-width: 0; flex: 1; }
+  .mmap-name { font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mmap-meta { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .mmap-rank { font-size: 11px; font-weight: 700; color: var(--muted); flex-shrink: 0; width: 16px; text-align: right; }
+
+  /* BUBBLE CHART */
+  #bubbleContainer { width: 100%; height: 360px; }
+
+  /* HEATMAP */
+  #heatmapContainer { width: 100%; overflow-x: auto; }
+  .heatmap-table { border-collapse: collapse; width: 100%; min-width: 600px; }
+  .heatmap-table th { padding: 6px 10px; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; text-align: center; }
+  .heatmap-table td { padding: 0; }
+  .heatmap-cell {
+    width: 100%; height: 36px; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; color: rgba(255,255,255,.95);
+    border-radius: 4px; margin: 2px;
+    transition: filter .15s;
+  }
+  .heatmap-cell:hover { filter: brightness(1.2); }
+  .heatmap-brand { padding: 6px 12px; font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; }
+
+  /* TIMELINE */
+  #timelineContainer { width: 100%; overflow-x: auto; }
+  .timeline-wrap { min-width: 700px; }
+  .timeline-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .timeline-label { width: 90px; font-size: 12px; font-weight: 600; color: var(--text); text-align: right; flex-shrink: 0; }
+  .timeline-track { flex: 1; height: 28px; background: var(--bg3); border-radius: 4px; position: relative; }
+  .timeline-bar {
+    position: absolute; top: 2px; bottom: 2px;
+    border-radius: 3px; display: flex; align-items: center;
+    padding: 0 6px; font-size: 10px; font-weight: 700; color: #fff;
+    overflow: hidden; white-space: nowrap;
+    transition: filter .15s;
+  }
+  .timeline-bar:hover { filter: brightness(1.2); }
+  .timeline-months { display: flex; margin-left: 98px; }
+  .timeline-month-label { flex: 1; text-align: center; font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .3px; }
+
+  /* RECS DARK */
+  .recs-dark-header { background: linear-gradient(135deg, #EEF2FF, #F5F3FF); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; margin-bottom: 24px; }
+  .matrix-card { border-radius: var(--radius); padding: 20px; }
+  .matrix-card.blue   { background: rgba(43,108,230,.05); border: 1.5px solid rgba(43,108,230,.25); }
+  .matrix-card.green  { background: rgba(16,169,110,.05); border: 1.5px solid rgba(16,169,110,.25); }
+  .matrix-card.orange { background: rgba(240,112,32,.05);  border: 1.5px solid rgba(240,112,32,.25); }
+  .matrix-card.purple { background: rgba(124,92,191,.05); border: 1.5px solid rgba(124,92,191,.25); }
+
+
+  /* ICON BOXES */
+  .icon-box {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .icon-box svg { display: block; }
+  .ib-green  { background: rgba(16,169,110,.1);  color: var(--green);  border: 1px solid rgba(16,169,110,.2); }
+  .ib-blue   { background: rgba(43,108,230,.08); color: var(--accent); border: 1px solid rgba(43,108,230,.18); }
+  .ib-purple { background: rgba(124,92,191,.09); color: var(--purple); border: 1px solid rgba(124,92,191,.2); }
+  .ib-yellow { background: rgba(232,168,0,.09);  color: var(--yellow); border: 1px solid rgba(232,168,0,.2); }
+  .ib-red    { background: rgba(220,53,69,.08);  color: var(--red);    border: 1px solid rgba(220,53,69,.18); }
+  .ib-orange { background: rgba(240,112,32,.08); color: var(--orange); border: 1px solid rgba(240,112,32,.18); }
+
+  /* POST VIEWS */
+  .post-views { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
+  .post-views svg { opacity: .6; flex-shrink: 0; }
+
+  /* NUM */
+  .num { font-variant-numeric: tabular-nums; }
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
-    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats, .kpi-row { grid-template-columns: repeat(2,1fr); }
     .grid-2 { grid-template-columns: 1fr; }
-    .platform-blocks { grid-template-columns: repeat(2, 1fr); }
+    .platform-blocks { grid-template-columns: repeat(2,1fr); }
     .post-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
     .main { padding: 16px; }
-    .hero-stats { grid-template-columns: 1fr 1fr; }
     .post-grid { grid-template-columns: 1fr; }
-    .platform-blocks { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -414,6 +360,24 @@
     </div>
   </div>
 
+
+  <div class="kpi-row">
+    <div class="kpi-big blue">
+      <div class="kpi-label">Доля Telegram</div>
+      <div class="kpi-num">58,9%</div>
+      <div class="kpi-desc">бюджета категории · 99% постов</div>
+    </div>
+    <div class="kpi-big orange">
+      <div class="kpi-label">EXEED доминирование</div>
+      <div class="kpi-num">40%</div>
+      <div class="kpi-desc">рынка по бюджету · 22 млн ₽</div>
+    </div>
+    <div class="kpi-big green">
+      <div class="kpi-label">Пиковый месяц</div>
+      <div class="kpi-num">12,1 млн</div>
+      <div class="kpi-desc">инвестиций в ноябре 2024</div>
+    </div>
+  </div>
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Топ-5 игроков по бюджету</div>
@@ -463,17 +427,35 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Бюджет по брендам</div>
-      <div class="card-sub">Все игроки рынка, сортировка по сумме</div>
-      <div class="chart-wrap tall">
+      <div class="card-sub">Все 22 игрока рынка, сортировка по бюджету</div>
+      <div class="chart-wrap" style="height:520px">
         <canvas id="brandsBarChart"></canvas>
       </div>
     </div>
     <div class="card">
       <div class="card-title">Доля рынка</div>
-      <div class="card-sub">Концентрация бюджетов</div>
-      <div class="chart-wrap tall">
+      <div class="card-sub">Все бренды · доля бюджета</div>
+      <div class="chart-wrap" style="height:520px">
         <canvas id="brandsPieChart"></canvas>
       </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Карта рынка</div>
+    <div class="card-sub">Площадь = доля бюджета · визуальное сравнение масштаба</div>
+    <div id="treemapContainer"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Бюджет vs Активность</div>
+    <div class="card-sub">Ось X = постов · Y = бюджет · размер = CPP</div>
+    <div class="chart-wrap" style="height:340px">
+      <canvas id="bubbleChart"></canvas>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Инсайт</div>
+      <p><strong>Правый нижний угол</strong> — эффективные бренды: много постов, умеренный бюджет, низкий CPP. <strong>Левый верхний</strong> — дорогие штучные размещения (VK/YouTube). EXEED — аномалия: максимальный объём и бюджет одновременно.</p>
     </div>
   </div>
 
@@ -576,7 +558,7 @@
         <div class="post-channel">ЛАДА · VK Video</div>
         <div class="post-text">Доставит праздник вовремя, поднимет новогоднее настроение, преодолеет километры, чтобы порадовать близких — не машина, а настоящий Дед Мороз.</div>
         <div class="post-meta">
-          <span class="post-views">👁 6 655 795 просмотров</span>
+          <span class="post-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 6 655 795 просмотров</span>
           <a class="post-link" href="https://vkvideo.ru/video-110135406_456243573" target="_blank">Смотреть →</a>
         </div>
       </div>
@@ -585,7 +567,7 @@
         <div class="post-channel">JAECOO · VK Video</div>
         <div class="post-text">Обновленный кроссовер JAECOO J7! Действует особая осенняя привилегия. Уверенный. Это по-настоящему.</div>
         <div class="post-meta">
-          <span class="post-views">👁 1 963 273 просмотра</span>
+          <span class="post-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 1 963 273 просмотра</span>
           <a class="post-link" href="https://vk.com/video-218471730_456239673" target="_blank">Смотреть →</a>
         </div>
       </div>
@@ -594,7 +576,7 @@
         <div class="post-channel">JAECOO · ПриветТачка (1,77M подп.)</div>
         <div class="post-text">Флагманский кроссовер JAECOO J8. Уверенный. Особые условия на покупку. Развёрнутый тест-драйв от топового авто-блогера.</div>
         <div class="post-meta">
-          <span class="post-views">👁 794 653 просмотра</span>
+          <span class="post-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 794 653 просмотра</span>
           <a class="post-link" href="https://www.youtube.com/watch?v=XeQopA7Q3es" target="_blank">Смотреть →</a>
         </div>
       </div>
@@ -603,7 +585,7 @@
         <div class="post-channel">ORA 03 · VK Video</div>
         <div class="post-text">Прокачай свой стиль с ORA 03. Комбинируй цвета кузова, впечатляй ретро дизайном. Erid: 2Vtzqv7Ga21</div>
         <div class="post-meta">
-          <span class="post-views">👁 2 091 370 просмотров</span>
+          <span class="post-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 2 091 370 просмотров</span>
           <a class="post-link" href="https://vk.com/video-211232966_456240469" target="_blank">Смотреть →</a>
         </div>
       </div>
@@ -612,7 +594,7 @@
         <div class="post-channel">EXEED VX · ПриветТачка</div>
         <div class="post-text">Узнать подробнее про новый VX: https://exeed.ru. Тест-драйв флагманского кроссовера EXEED VX.</div>
         <div class="post-meta">
-          <span class="post-views">👁 119 892 просмотра</span>
+          <span class="post-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 119 892 просмотра</span>
           <a class="post-link" href="https://www.youtube.com/watch?v=LoABSSaMfAQ" target="_blank">Смотреть →</a>
         </div>
       </div>
@@ -621,7 +603,7 @@
         <div class="post-channel">OMODA C5 · VK Video</div>
         <div class="post-text">Модный фастбек-кроссовер OMODA С5. Цена от 1 999 900 ₽. Erid: 2VtzqvtdCvw</div>
         <div class="post-meta">
-          <span class="post-views">👁 277 451 просмотр</span>
+          <span class="post-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> 277 451 просмотр</span>
           <a class="post-link" href="https://vk.com/video-211232966_456240439" target="_blank">Смотреть →</a>
         </div>
       </div>
@@ -665,6 +647,19 @@
 
 <!-- ===================== MONTHLY ===================== -->
 <section id="monthly" class="section">
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Тепловая карта активности</div>
+      <div class="card-sub">Интенсивность инвестиций по брендам и месяцам</div>
+      <div id="heatmapContainer"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Timeline активности брендов</div>
+      <div class="card-sub">Когда каждый бренд был активен в посевах</div>
+      <div id="timelineContainer"></div>
+    </div>
+  </div>
+
   <div class="section-header">
     <h2>Динамика по месяцам</h2>
     <p>Как менялась активность брендов с июля по декабрь 2024</p>
@@ -779,19 +774,19 @@
   <div class="card" style="background:var(--dark);border-color:var(--dark);color:var(--white);margin-bottom:24px">
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
       <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#94A3B8;margin-bottom:10px">Вывод 1 · Концентрация</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px">Вывод 1 · Концентрация</div>
         <div style="font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px">1 бренд = 40% рынка</div>
-        <div style="font-size:13px;color:#CBD5E1;line-height:1.6">EXEED единолично формирует ландшафт посевного рынка. Конкуренты работают в условиях информационного давления от одного игрока.</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.6">EXEED единолично формирует ландшафт посевного рынка. Конкуренты работают в условиях информационного давления от одного игрока.</div>
       </div>
       <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#94A3B8;margin-bottom:10px">Вывод 2 · Эффективность</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px">Вывод 2 · Эффективность</div>
         <div style="font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px">VK × 100 = TG</div>
-        <div style="font-size:13px;color:#CBD5E1;line-height:1.6">Одно VK-размещение стоит как 100 TG-постов, но даёт сопоставимый охват. Большинство брендов недооценивают этот канал.</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.6">Одно VK-размещение стоит как 100 TG-постов, но даёт сопоставимый охват. Большинство брендов недооценивают этот канал.</div>
       </div>
       <div>
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#94A3B8;margin-bottom:10px">Вывод 3 · Сезонность</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:10px">Вывод 3 · Сезонность</div>
         <div style="font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px">Ноябрь = пик битвы</div>
-        <div style="font-size:13px;color:#CBD5E1;line-height:1.6">12,1 млн ₽ в ноябре — абсолютный максимум. Декабрь — затишье. Бренды, уходящие в декабрь, получают аудиторию без конкурентного шума.</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.6">12,1 млн ₽ в ноябре — абсолютный максимум. Декабрь — затишье. Бренды, уходящие в декабрь, получают аудиторию без конкурентного шума.</div>
       </div>
     </div>
   </div>
@@ -804,7 +799,7 @@
 
       <div style="border:2px solid #2563EB;border-radius:12px;padding:20px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-          <div style="background:#2563EB;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">МАЛЫЙ БЮДЖЕТ · ОХВАТ</div>
+          <div style="background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">МАЛЫЙ БЮДЖЕТ · ОХВАТ</div>
         </div>
         <div style="font-size:15px;font-weight:700;margin-bottom:8px">TG-посевы · до 500K ₽/мес</div>
         <div style="font-size:13px;color:var(--mid);line-height:1.7">
@@ -819,7 +814,7 @@
 
       <div style="border:2px solid #10B981;border-radius:12px;padding:20px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-          <div style="background:#10B981;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">МАЛЫЙ БЮДЖЕТ · КОНВЕРСИЯ</div>
+          <div style="background:var(--green);color:#0F172A;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">МАЛЫЙ БЮДЖЕТ · КОНВЕРСИЯ</div>
         </div>
         <div style="font-size:15px;font-weight:700;margin-bottom:8px">YouTube-интеграция · 1–3 ролика</div>
         <div style="font-size:13px;color:var(--mid);line-height:1.7">
@@ -827,14 +822,14 @@
           <b>Выбор канала:</b> транспортная тематика — высокая конверсия в тест-драйв. Аудитория уже «тёплая».<br><br>
           <b>Плюс:</b> контент живёт в поиске YouTube. TG-пост умирает за 24 часа.
         </div>
-        <div style="margin-top:12px;padding:10px;background:#F0FDF4;border-radius:8px;font-size:12px;color:#15803D">
+        <div style="margin-top:12px;padding:10px;background:rgba(52,211,153,.08);border-radius:8px;font-size:12px;color:#34D399;border:1px solid rgba(52,211,153,.2)">
           <b>Пример из данных:</b> JAECOO (66% YouTube), GAC (Wylsared)
         </div>
       </div>
 
       <div style="border:2px solid #F59E0B;border-radius:12px;padding:20px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-          <div style="background:#F59E0B;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">БОЛЬШОЙ БЮДЖЕТ · ОХВАТ</div>
+          <div style="background:var(--yellow);color:#0F172A;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">БОЛЬШОЙ БЮДЖЕТ · ОХВАТ</div>
         </div>
         <div style="font-size:15px;font-weight:700;margin-bottom:8px">VK Видео · 1–3 млн ₽/запуск</div>
         <div style="font-size:13px;color:var(--mid);line-height:1.7">
@@ -842,14 +837,14 @@
           <b>Условие успеха:</b> вирусный потенциал контента. Новогоднее видео ЛАДЫ зашло потому, что у неё был понятный эмоциональный крючок.<br><br>
           <b>TG как поддержка:</b> добавить 20–30 TG-постов для усиления после запуска видео.
         </div>
-        <div style="margin-top:12px;padding:10px;background:#FFFBEB;border-radius:8px;font-size:12px;color:#B45309">
+        <div style="margin-top:12px;padding:10px;background:rgba(251,146,60,.08);border-radius:8px;font-size:12px;color:#FB923C;border:1px solid rgba(251,146,60,.2)">
           <b>Пример из данных:</b> ЛАДА декабрь, OMODA июль (VK-старт)
         </div>
       </div>
 
       <div style="border:2px solid #8B5CF6;border-radius:12px;padding:20px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-          <div style="background:#8B5CF6;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">БОЛЬШОЙ БЮДЖЕТ · ДОМИНИРОВАНИЕ</div>
+          <div style="background:var(--purple);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">БОЛЬШОЙ БЮДЖЕТ · ДОМИНИРОВАНИЕ</div>
         </div>
         <div style="font-size:15px;font-weight:700;margin-bottom:8px">TG-машина + YouTube + VK</div>
         <div style="font-size:13px;color:var(--mid);line-height:1.7">
@@ -857,7 +852,7 @@
           <b>Риск:</b> при CPP 5K ₽ качество площадок непредсказуемо. EXEED размещается в каналах любой тематики — от «Кино» до «Эротика».<br><br>
           <b>Улучшение:</b> добавить whitelist-фильтрацию. Сэкономит 20–30% бюджета без потери охвата.
         </div>
-        <div style="margin-top:12px;padding:10px;background:#F5F3FF;border-radius:8px;font-size:12px;color:#6D28D9">
+        <div style="margin-top:12px;padding:10px;background:rgba(167,139,250,.08);border-radius:8px;font-size:12px;color:#A78BFA;border:1px solid rgba(167,139,250,.2)">
           <b>Пример из данных:</b> EXEED 22 млн ₽, HAVAL 4,5 млн ₽
         </div>
       </div>
@@ -868,40 +863,40 @@
   <div class="grid-2">
     <div class="card">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
-        <div style="width:10px;height:10px;background:#10B981;border-radius:50%"></div>
+        <div style="width:10px;height:10px;background:var(--green);border-radius:50%"></div>
         <div class="card-title" style="margin-bottom:0">Что работает</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:14px">
         <div style="display:flex;gap:12px">
-          <div style="font-size:18px;flex-shrink:0">📹</div>
+          <div <div class="icon-box ib-green"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">VK Видео как вирусный инструмент</div>
             <div style="font-size:12px;color:var(--muted)">ЛАДА: 6,65M просмотров за 2,1 млн ₽. Одно размещение = вся TG-кампания за квартал по охвату.</div>
           </div>
         </div>
         <div style="display:flex;gap:12px">
-          <div style="font-size:18px;flex-shrink:0">🎯</div>
+          <div class="icon-box ib-red"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">YouTube-обзоры у авто-блогеров</div>
             <div style="font-size:12px;color:var(--muted)">JAECOO: 794K просмотров на ПриветТачке, контент живёт в поиске. Аудитория с покупательским намерением.</div>
           </div>
         </div>
         <div style="display:flex;gap:12px">
-          <div style="font-size:18px;flex-shrink:0">🗓️</div>
+          <div class="icon-box ib-blue"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="15" x2="12" y2="17" stroke-width="3"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">Декабрь — окно с нулевой конкуренцией</div>
             <div style="font-size:12px;color:var(--muted)">Все уходят. ЛАДА осталась одна и взяла всё внимание. В декабре бюджет работает в 2–3× эффективнее.</div>
           </div>
         </div>
         <div style="display:flex;gap:12px">
-          <div style="font-size:18px;flex-shrink:0">🎭</div>
+          <div class="icon-box ib-purple"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">Нетематические каналы с правильной аудиторией</div>
             <div style="font-size:12px;color:var(--muted)">GAC в tech-канале Wylsared: 290K просмотров, аудитория — платёжеспособные мужчины 25–40. Транспорт-канал даёт меньше.</div>
           </div>
         </div>
         <div style="display:flex;gap:12px">
-          <div style="font-size:18px;flex-shrink:0">📦</div>
+          <div class="icon-box ib-yellow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M2 9h20"/><line x1="12" y1="3" x2="8" y2="9"/><line x1="12" y1="3" x2="16" y2="9"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">Модельный фокус (одна модель = весь бюджет)</div>
             <div style="font-size:12px;color:var(--muted)">OMODA C5 = 90% бюджета OMODA. ORA 03 = 76% бюджета ORA. Фокус работает лучше распыления.</div>
@@ -912,40 +907,40 @@
 
     <div class="card">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
-        <div style="width:10px;height:10px;background:#EF4444;border-radius:50%"></div>
+        <div style="width:10px;height:10px;background:var(--red);border-radius:50%"></div>
         <div class="card-title" style="margin-bottom:0">Что не работает / недооценено</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:14px">
         <div style="display:flex;gap:12px">
-          <div style="font-size:18px;flex-shrink:0">🔴</div>
+          <div class="icon-box ib-red"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".5" fill="currentColor"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">TG без whitelist-фильтрации</div>
             <div style="font-size:12px;color:var(--muted)">EXEED размещается в каналах «Эротика», «Даркнет», «Шок-контент». 20–30% бюджета уходит в нерелевантную среду, портящую бренд.</div>
           </div>
         </div>
         <div style="display:flex;gap:12px">
-          <div style="font-size:18px;flex-shrink:0">🟡</div>
+          <div class="icon-box ib-orange"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">Rutube — деньги на ветер</div>
             <div style="font-size:12px;color:var(--muted)">373K ₽ бюджета, 9 размещений, 114K просмотров (CPV 3,3 ₽). Это в 10 раз дороже VK и в 4 раза дороже YouTube по охвату.</div>
           </div>
         </div>
         <div style="display:flex;gap:12px">
-          <div style="font-size:18px;flex-shrink:0">🟡</div>
+          <div class="icon-box ib-yellow"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">Параллельный запуск всего модельного ряда</div>
             <div style="font-size:12px;color:var(--muted)">EXEED продвигает TXL, RX, VX, LX одновременно. Потребитель не запоминает ничего конкретного. Фокус на флагмане дал бы больший recall.</div>
           </div>
         </div>
         <div style="display:flex;gap:12px">
-          <div style="font-size:18px;flex-shrink:0">🔴</div>
+          <div class="icon-box ib-red"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">Игнорирование октября конкурентами EXEED</div>
             <div style="font-size:12px;color:var(--muted)">В октябре EXEED вложил 5,9 млн ₽ и занял всё информационное пространство. Конкуренты провалились — их голоса не слышно.</div>
           </div>
         </div>
         <div style="display:flex;gap:12px">
-          <div style="font-size:18px;flex-shrink:0">🟡</div>
+          <div class="icon-box ib-orange"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
           <div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">Только TG-стратегия = TG-пузырь</div>
             <div style="font-size:12px;color:var(--muted)">МОСКВИЧ, GEELY, CHERY = 100% TG. Аудитория TG-каналов частично пересекается — одни и те же люди видят рекламу 10 раз подряд.</div>
@@ -961,11 +956,11 @@
     <div class="card-sub">Когда и как использовать каждый канал</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px">
       <div style="border-radius:10px;overflow:hidden">
-        <div style="background:#229ED9;padding:12px 14px">
+        <div style="background:rgba(64,179,224,.2);padding:12px 14px;border-radius:8px 8px 0 0">
           <div style="color:#fff;font-weight:700;font-size:14px">Telegram</div>
           <div style="color:rgba(255,255,255,.8);font-size:11px;margin-top:2px">6 450 ₽ / пост avg</div>
         </div>
-        <div style="background:#E8F4FD;padding:14px;font-size:12px;color:#0B6A9E;line-height:1.7">
+        <div style="background:rgba(64,179,224,.08);padding:14px;font-size:12px;color:#8B90A7;line-height:1.7;border-radius:8px;border:1px solid rgba(64,179,224,.2)">
           <b>Когда:</b> поддерживающий флайт, старт кампании, анонс акций<br><br>
           <b>Минимум для эффекта:</b> 30–50 каналов одновременно<br><br>
           <b>Категории:</b> Транспорт + Блоги (54%) — ядро. Добавить Бизнес, Экономику для B2B аудитории<br><br>
@@ -973,11 +968,11 @@
         </div>
       </div>
       <div style="border-radius:10px;overflow:hidden">
-        <div style="background:#0077FF;padding:12px 14px">
+        <div style="background:rgba(91,143,255,.2);padding:12px 14px;border-radius:8px 8px 0 0">
           <div style="color:#fff;font-weight:700;font-size:14px">VK</div>
           <div style="color:rgba(255,255,255,.8);font-size:11px;margin-top:2px">642 215 ₽ / пост avg</div>
         </div>
-        <div style="background:#E8F0FF;padding:14px;font-size:12px;color:#004FAA;line-height:1.7">
+        <div style="background:rgba(91,143,255,.08);padding:14px;font-size:12px;color:#8B90A7;line-height:1.7;border-radius:8px;border:1px solid rgba(91,143,255,.2)">
           <b>Когда:</b> запуск модели, сезонная кампания, вирусный потенциал<br><br>
           <b>Формат:</b> видео 30–90 сек. Статика и карусели работают хуже в 3–5×<br><br>
           <b>CPV норма:</b> 0,3–0,9 ₽/просмотр — хорошо. Выше 2 ₽ — пересмотреть<br><br>
@@ -985,11 +980,11 @@
         </div>
       </div>
       <div style="border-radius:10px;overflow:hidden">
-        <div style="background:#FF0000;padding:12px 14px">
+        <div style="background:rgba(255,92,92,.2);padding:12px 14px;border-radius:8px 8px 0 0">
           <div style="color:#fff;font-weight:700;font-size:14px">YouTube</div>
           <div style="color:rgba(255,255,255,.8);font-size:11px;margin-top:2px">269 308 ₽ / пост avg</div>
         </div>
-        <div style="background:#FFF0F0;padding:14px;font-size:12px;color:#B91C1C;line-height:1.7">
+        <div style="background:rgba(255,92,92,.08);padding:14px;font-size:12px;color:#8B90A7;line-height:1.7;border-radius:8px;border:1px solid rgba(255,92,92,.2)">
           <b>Когда:</b> тест-драйв, сравнение с конкурентами, запуск новинки<br><br>
           <b>Формат:</b> интеграция внутри обзора (не преролл) — CTR выше в 4–6×<br><br>
           <b>Выбор блогера:</b> авто-тематика = высокая конверсия. Tech и lifestyle = новая аудитория<br><br>
@@ -997,11 +992,11 @@
         </div>
       </div>
       <div style="border-radius:10px;overflow:hidden">
-        <div style="background:#94A3B8;padding:12px 14px">
+        <div style="background:rgba(123,156,255,.15);padding:12px 14px;border-radius:8px 8px 0 0">
           <div style="color:#fff;font-weight:700;font-size:14px">Rutube</div>
           <div style="color:rgba(255,255,255,.8);font-size:11px;margin-top:2px">3,3 ₽ / просмотр avg</div>
         </div>
-        <div style="background:#F1F5F9;padding:14px;font-size:12px;color:#475569;line-height:1.7">
+        <div style="background:var(--bg3);padding:14px;font-size:12px;color:var(--muted);line-height:1.7;border-radius:8px;border:1px solid var(--border)">
           <b>Когда:</b> только если требует юридическая или закупочная политика (госзаказ, «российский контент»)<br><br>
           <b>CPV:</b> в 10× хуже VK, в 4× хуже YouTube<br><br>
           <b>Аудитория:</b> узкая, специфическая. Слабо пересекается с авторынком<br><br>
@@ -1017,43 +1012,43 @@
     <div class="card-sub">На основе анализа сезонных паттернов конкурентов</div>
     <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:12px">
       <div style="text-align:center">
-        <div style="background:#FEF3C7;border-radius:8px;padding:12px 8px;margin-bottom:8px">
-          <div style="font-size:13px;font-weight:700;color:#B45309">Июль</div>
-          <div style="font-size:11px;color:#92400E;margin-top:4px">6,8 млн ₽</div>
-          <div style="font-size:10px;color:#A16207;margin-top:6px;line-height:1.5">Умеренная конкуренция. Хорошо для запуска новых моделей.</div>
+        <div style="background:rgba(251,191,36,.1);border-radius:8px;padding:12px 8px;margin-bottom:8px;border:1px solid rgba(251,191,36,.2)">
+          <div style="font-size:13px;font-weight:700;color:var(--orange)">Июль</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">6,8 млн ₽</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:6px;line-height:1.5">Умеренная конкуренция. Хорошо для запуска новых моделей.</div>
         </div>
       </div>
       <div style="text-align:center">
-        <div style="background:#FEE2E2;border-radius:8px;padding:12px 8px;margin-bottom:8px">
-          <div style="font-size:13px;font-weight:700;color:#B91C1C">Август</div>
-          <div style="font-size:11px;color:#991B1B;margin-top:4px">10,2 млн ₽</div>
-          <div style="font-size:10px;color:#7F1D1D;margin-top:6px;line-height:1.5">Высокий шум. ORA и ЛАДА активны. Нужен большой бюджет для заметности.</div>
+        <div style="background:rgba(248,113,113,.1);border-radius:8px;padding:12px 8px;margin-bottom:8px;border:1px solid rgba(248,113,113,.2)">
+          <div style="font-size:13px;font-weight:700;color:var(--red)">Август</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">10,2 млн ₽</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:6px;line-height:1.5">Высокий шум. ORA и ЛАДА активны. Нужен большой бюджет для заметности.</div>
         </div>
       </div>
       <div style="text-align:center">
-        <div style="background:#DCFCE7;border-radius:8px;padding:12px 8px;margin-bottom:8px">
-          <div style="font-size:13px;font-weight:700;color:#15803D">Сентябрь</div>
+        <div style="background:rgba(52,211,153,.1);border-radius:8px;padding:12px 8px;margin-bottom:8px;border:1px solid rgba(52,211,153,.2)">
+          <div style="font-size:13px;font-weight:700;color:var(--green)">Сентябрь</div>
           <div style="font-size:11px;color:#166534;margin-top:4px">6,9 млн ₽</div>
           <div style="font-size:10px;color:#14532D;margin-top:6px;line-height:1.5">Спад после августа. Хорошее окно для точечных YouTube-интеграций.</div>
         </div>
       </div>
       <div style="text-align:center">
-        <div style="background:#FEE2E2;border-radius:8px;padding:12px 8px;margin-bottom:8px">
-          <div style="font-size:13px;font-weight:700;color:#B91C1C">Октябрь</div>
-          <div style="font-size:11px;color:#991B1B;margin-top:4px">10,1 млн ₽</div>
-          <div style="font-size:10px;color:#7F1D1D;margin-top:6px;line-height:1.5">EXEED-доминирование. Без 3+ млн ₽ голос не слышен.</div>
+        <div style="background:rgba(248,113,113,.1);border-radius:8px;padding:12px 8px;margin-bottom:8px;border:1px solid rgba(248,113,113,.2)">
+          <div style="font-size:13px;font-weight:700;color:var(--red)">Октябрь</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">10,1 млн ₽</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:6px;line-height:1.5">EXEED-доминирование. Без 3+ млн ₽ голос не слышен.</div>
         </div>
       </div>
       <div style="text-align:center">
-        <div style="background:#FEE2E2;border-radius:8px;padding:12px 8px;margin-bottom:8px">
-          <div style="font-size:13px;font-weight:700;color:#B91C1C">Ноябрь</div>
-          <div style="font-size:11px;color:#991B1B;margin-top:4px">12,2 млн ₽</div>
-          <div style="font-size:10px;color:#7F1D1D;margin-top:6px;line-height:1.5">Абсолютный пик. Битва всех со всеми. Только с сильным креативом.</div>
+        <div style="background:rgba(248,113,113,.1);border-radius:8px;padding:12px 8px;margin-bottom:8px;border:1px solid rgba(248,113,113,.2)">
+          <div style="font-size:13px;font-weight:700;color:var(--red)">Ноябрь</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">12,2 млн ₽</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:6px;line-height:1.5">Абсолютный пик. Битва всех со всеми. Только с сильным креативом.</div>
         </div>
       </div>
       <div style="text-align:center">
-        <div style="background:#DCFCE7;border-radius:8px;padding:12px 8px;margin-bottom:8px">
-          <div style="font-size:13px;font-weight:700;color:#15803D">Декабрь</div>
+        <div style="background:rgba(52,211,153,.1);border-radius:8px;padding:12px 8px;margin-bottom:8px;border:1px solid rgba(52,211,153,.2)">
+          <div style="font-size:13px;font-weight:700;color:var(--green)">Декабрь</div>
           <div style="font-size:11px;color:#166534;margin-top:4px">9,6 млн ₽</div>
           <div style="font-size:10px;color:#14532D;margin-top:6px;line-height:1.5">Большинство уходят. Низкий шум → высокая заметность. Лучшее окно для VK-запуска.</div>
         </div>
@@ -1072,7 +1067,7 @@
     <div style="display:flex;flex-direction:column;gap:0">
 
       <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px">
-        <div style="background:#2563EB;width:6px;flex-shrink:0"></div>
+        <div style="background:var(--accent);width:6px;flex-shrink:0"></div>
         <div style="padding:16px 20px;flex:1">
           <div style="font-size:13px;font-weight:700;margin-bottom:6px">Бренд-доминант (EXEED-уровень, 20+ млн ₽/год)</div>
           <div style="font-size:12px;color:var(--mid);line-height:1.7">Приоритет — качество, а не объём. Внедрить whitelist по категориям (убрать Эротика, Шок, Даркнет). Добавить VK-видео (сейчас 1–2% против 26% рынка в целом) и YouTube-флагман 2–3 раза в год. Равномерно распределить бюджет по месяцам вместо октябрьской концентрации — это снизит CPP и увеличит частоту контакта.</div>
@@ -1080,7 +1075,7 @@
       </div>
 
       <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px">
-        <div style="background:#10B981;width:6px;flex-shrink:0"></div>
+        <div style="background:var(--green);width:6px;flex-shrink:0"></div>
         <div style="padding:16px 20px;flex:1">
           <div style="font-size:13px;font-weight:700;margin-bottom:6px">Бренд-претендент (3–8 млн ₽/год, HAVAL/JAECOO/OMODA уровень)</div>
           <div style="font-size:12px;color:var(--mid);line-height:1.7">Не пытаться конкурировать с EXEED в TG по объёму — проиграете. Выбрать одну платформу как главную (YouTube или VK) и стать там лидером. JAECOO показал: 4 млн ₽ в YouTube дают больший recall, чем 4 млн ₽ в TG-посевах. Избегать октябрь и ноябрь — уйти в сентябрь и декабрь.</div>
@@ -1088,7 +1083,7 @@
       </div>
 
       <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px">
-        <div style="background:#F59E0B;width:6px;flex-shrink:0"></div>
+        <div style="background:var(--yellow);width:6px;flex-shrink:0"></div>
         <div style="padding:16px 20px;flex:1">
           <div style="font-size:13px;font-weight:700;margin-bottom:6px">Малый игрок (до 1 млн ₽/год, МОСКВИЧ/GEELY/CHERY уровень)</div>
           <div style="font-size:12px;color:var(--mid);line-height:1.7">Один мощный удар лучше постоянного шёпота. Сконцентрировать весь бюджет в 1–2 месяца, выбрать 1 платформу (VK или YouTube), 1 модель. Если 100% TG — минимум 30 каналов одновременно, иначе незаметно. Тест: октябрь–ноябрь — нет смысла выходить против 12M ₽ шума. Декабрь — лучший момент.</div>
@@ -1096,7 +1091,7 @@
       </div>
 
       <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden">
-        <div style="background:#8B5CF6;width:6px;flex-shrink:0"></div>
+        <div style="background:var(--purple);width:6px;flex-shrink:0"></div>
         <div style="padding:16px 20px;flex:1">
           <div style="font-size:13px;font-weight:700;margin-bottom:6px">Новый бренд (выход на рынок)</div>
           <div style="font-size:12px;color:var(--mid);line-height:1.7">Зайти через нетематические каналы с правильной аудиторией (Tech, Бизнес, Lifestyle) — там меньше конкурентов. Крупный YouTube-запуск (1 видео на 300–500K ₽) для формирования знания, потом поддержка в TG. Модельный фокус обязателен: один автомобиль = одно позиционирование. Смотреть на OMODA (VK-запуск в июле) как на образец: зашли тихо, пока все отдыхали.</div>
@@ -1353,10 +1348,18 @@ function fmtFull(n) {
 }
 
 const COLORS = {
-  accent: '#2563EB',
-  brands: ['#2563EB','#10B981','#EF4444','#EC4899','#F59E0B','#8B5CF6','#06B6D4','#84CC16','#F97316','#6366F1','#14B8A6','#A855F7'],
-  platforms: { TG: '#229ED9', VK: '#0077FF', YouTube: '#FF0000', Rutube: '#0044BB' },
+  accent: '#2B6CE6',
+  brands: ['#2B6CE6','#10A96E','#DC3545','#F07020','#E8A800','#7C5CBF','#0A95C8','#059669','#D97706','#4F46E5','#0E7490','#BE185D','#0284C7','#15803D','#B91C1C','#C2410C','#A16207','#6D28D9','#0E7490','#9D174D','#1D4ED8','#047857'],
+  platforms: { TG: '#0A95C8', VK: '#2C5DE5', YouTube: '#CC1F1F', Rutube: '#3A5FCC' },
 };
+
+// Dark theme chart defaults
+Chart.defaults.color = '#6B7494';
+Chart.defaults.borderColor = '#E2E6EF';
+Chart.defaults.plugins.legend.labels.color = '#6B7494';
+Chart.defaults.plugins.legend.labels.boxWidth = 12;
+Chart.defaults.plugins.legend.labels.font = { size: 12 };
+
 
 // ==================== CHARTS ====================
 
@@ -1364,12 +1367,15 @@ function makeChart(id, type, labels, datasets, options = {}) {
   const canvas = document.getElementById(id);
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
+  // If parent has explicit height, fill it
+  const parentH = canvas.parentElement && canvas.parentElement.style.height;
+  const noAspect = !!parentH;
   new Chart(ctx, {
     type,
     data: { labels, datasets },
     options: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: !noAspect,
       plugins: { legend: { position: 'bottom', labels: { font: { size: 12 }, padding: 16 } } },
       ...options,
     }
@@ -1385,7 +1391,7 @@ function initCharts() {
     {
       plugins: { legend: { display: false } },
       scales: {
-        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#F1F5F9' } },
+        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#E2E6EF' } },
         x: { grid: { display: false } }
       }
     }
@@ -1395,7 +1401,7 @@ function initCharts() {
   const pKeys = Object.keys(PLATFORM_DATA.budget);
   makeChart('overviewPlatformChart', 'doughnut',
     pKeys,
-    [{ data: pKeys.map(k => PLATFORM_DATA.budget[k]), backgroundColor: pKeys.map(k => COLORS.platforms[k]), borderWidth: 2, borderColor: '#fff' }],
+    [{ data: pKeys.map(k => PLATFORM_DATA.budget[k]), backgroundColor: pKeys.map(k => COLORS.platforms[k]), borderWidth: 2, borderColor: '#FFFFFF' }],
     { plugins: { legend: { position: 'right' } }, cutout: '60%' }
   );
 
@@ -1406,37 +1412,58 @@ function initCharts() {
     {
       plugins: { legend: { display: false } },
       scales: {
-        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#F1F5F9' } },
+        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#E2E6EF' } },
         x: { grid: { display: false } }
       }
     }
   );
 
   // Brands: horizontal bar
-  const bSorted = [...BRANDS_DATA].sort((a,b) => b.budget - a.budget).slice(0,16);
+  const bSorted = [...BRANDS_DATA].sort((a,b) => b.budget - a.budget);
   makeChart('brandsBarChart', 'bar',
     bSorted.map(b => b.name),
-    [{ data: bSorted.map(b => b.budget), backgroundColor: COLORS.accent + 'CC', borderRadius: 4 }],
+    [{ data: bSorted.map(b => b.budget), backgroundColor: bSorted.map((_,i) => COLORS.brands[i % COLORS.brands.length]), borderRadius: 4 }],
     {
       indexAxis: 'y',
       plugins: { legend: { display: false } },
       scales: {
-        x: { ticks: { callback: v => fmt(v) }, grid: { color: '#F1F5F9' } },
-        y: { grid: { display: false } }
+        x: { ticks: { callback: v => fmt(v) }, grid: { color: '#E2E6EF' } },
+        y: { grid: { display: false }, ticks: { font: { size: 12 } } }
       }
     }
   );
 
-  // Brands: pie
+  // Brands: pie — all brands, legend below
   makeChart('brandsPieChart', 'doughnut',
-    BRANDS_DATA.slice(0,10).map(b => b.name).concat(['Остальные']),
+    BRANDS_DATA.map(b => b.name),
     [{
-      data: [...BRANDS_DATA.slice(0,10).map(b => b.budget), BRANDS_DATA.slice(10).reduce((s,b) => s+b.budget, 0)],
-      backgroundColor: [...COLORS.brands.slice(0,10), '#CBD5E1'],
+      data: BRANDS_DATA.map(b => b.budget),
+      backgroundColor: BRANDS_DATA.map((_,i) => COLORS.brands[i % COLORS.brands.length]),
       borderWidth: 2,
-      borderColor: '#fff'
+      borderColor: '#FFFFFF'
     }],
-    { cutout: '55%' }
+    {
+      cutout: '50%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            font: { size: 11 },
+            padding: 10,
+            boxWidth: 10,
+            boxHeight: 10,
+            generateLabels: chart => chart.data.labels.map((label, i) => ({
+              text: `${label}  ${BRANDS_DATA[i].share.toFixed(1)}%`,
+              fillStyle: chart.data.datasets[0].backgroundColor[i],
+              strokeStyle: '#fff',
+              lineWidth: 1,
+              index: i,
+              hidden: false,
+            }))
+          }
+        }
+      }
+    }
   );
 
   // Brands table
@@ -1460,7 +1487,7 @@ function initCharts() {
   // Platforms: budget donut
   makeChart('platformBudgetChart', 'doughnut',
     Object.keys(PLATFORM_DATA.budget),
-    [{ data: Object.values(PLATFORM_DATA.budget), backgroundColor: Object.keys(PLATFORM_DATA.budget).map(k => COLORS.platforms[k]), borderWidth: 2, borderColor: '#fff' }],
+    [{ data: Object.values(PLATFORM_DATA.budget), backgroundColor: Object.keys(PLATFORM_DATA.budget).map(k => COLORS.platforms[k]), borderWidth: 2, borderColor: '#FFFFFF' }],
     { cutout: '60%' }
   );
 
@@ -1473,7 +1500,7 @@ function initCharts() {
     {
       plugins: { legend: { display: false } },
       scales: {
-        y: { ticks: { callback: v => fmtFull(v) }, grid: { color: '#F1F5F9' } },
+        y: { ticks: { callback: v => fmtFull(v) }, grid: { color: '#E2E6EF' } },
         x: { grid: { display: false } }
       }
     }
@@ -1491,7 +1518,7 @@ function initCharts() {
     })),
     {
       scales: {
-        y: { stacked: true, ticks: { callback: v => fmt(v) }, grid: { color: '#F1F5F9' } },
+        y: { stacked: true, ticks: { callback: v => fmt(v) }, grid: { color: '#E2E6EF' } },
         x: { stacked: true, grid: { display: false } }
       }
     }
@@ -1505,14 +1532,14 @@ function initCharts() {
       indexAxis: 'y',
       plugins: { legend: { display: false } },
       scales: {
-        x: { ticks: { callback: v => fmt(v) }, grid: { color: '#F1F5F9' } },
+        x: { ticks: { callback: v => fmt(v) }, grid: { color: '#E2E6EF' } },
         y: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
   );
 
   // Models: monthly line
-  const modelColors = ['#2563EB','#EF4444','#F59E0B','#8B5CF6','#10B981','#EC4899','#06B6D4'];
+  const modelColors = ['#2B6CE6','#DC3545','#E8A800','#7C5CBF','#10A96E','#BE185D','#0A95C8'];
   makeChart('modelsMonthlyChart', 'line',
     MONTHS,
     Object.entries(MODELS_MONTHLY).map(([name, vals], i) => ({
@@ -1526,7 +1553,7 @@ function initCharts() {
     })),
     {
       scales: {
-        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#F1F5F9' } },
+        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#E2E6EF' } },
         x: { grid: { display: false } }
       }
     }
@@ -1539,7 +1566,7 @@ function initCharts() {
     {
       plugins: { legend: { display: false } },
       scales: {
-        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#F1F5F9' } },
+        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#E2E6EF' } },
         x: { grid: { display: false } }
       }
     }
@@ -1561,7 +1588,7 @@ function initCharts() {
     })),
     {
       scales: {
-        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#F1F5F9' } },
+        y: { ticks: { callback: v => fmt(v) }, grid: { color: '#E2E6EF' } },
         x: { grid: { display: false } }
       }
     }
@@ -1612,7 +1639,7 @@ function initCharts() {
       indexAxis: 'y',
       plugins: { legend: { display: false } },
       scales: {
-        x: { ticks: { callback: v => fmt(v) }, grid: { color: '#F1F5F9' } },
+        x: { ticks: { callback: v => fmt(v) }, grid: { color: '#E2E6EF' } },
         y: { grid: { display: false }, ticks: { font: { size: 11 } } }
       }
     }
@@ -1621,7 +1648,7 @@ function initCharts() {
   // Categories: pie
   makeChart('categoriesPieChart', 'doughnut',
     CATEGORIES_DATA.map(c => c.name),
-    [{ data: CATEGORIES_DATA.map(c => c.budget), backgroundColor: CATEGORIES_DATA.map((_,i) => COLORS.brands[i%COLORS.brands.length]), borderWidth: 2, borderColor: '#fff' }],
+    [{ data: CATEGORIES_DATA.map(c => c.budget), backgroundColor: CATEGORIES_DATA.map((_,i) => COLORS.brands[i%COLORS.brands.length]), borderWidth: 2, borderColor: '#FFFFFF' }],
     { cutout: '55%' }
   );
 
@@ -1677,7 +1704,7 @@ function initBrandDetails() {
           <div class="post-channel">${p.channel}</div>
           <div class="post-text">${p.text}</div>
           <div class="post-meta">
-            <span class="post-views">👁 ${p.views}</span>
+            <span class="post-views"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> ${p.views}</span>
             ${p.url !== '#' ? `<a class="post-link" href="${p.url}" target="_blank">Открыть →</a>` : ''}
           </div>
         </div>`;
@@ -1721,7 +1748,7 @@ function initBrandDetails() {
           type: 'doughnut',
           data: {
             labels: platEntries.map(([k]) => k),
-            datasets: [{ data: platEntries.map(([,v]) => v), backgroundColor: platColors, borderWidth: 2, borderColor: '#fff' }]
+            datasets: [{ data: platEntries.map(([,v]) => v), backgroundColor: platColors, borderWidth: 2, borderColor: '#FFFFFF' }]
           },
           options: {
             responsive: true,
@@ -1742,7 +1769,7 @@ function initBrandDetails() {
             responsive: true,
             plugins: { legend: { display: false } },
             scales: {
-              y: { ticks: { callback: v => fmt(v) }, grid: { color: '#F1F5F9' } },
+              y: { ticks: { callback: v => fmt(v) }, grid: { color: '#E2E6EF' } },
               x: { grid: { display: false } }
             }
           }
@@ -1750,6 +1777,190 @@ function initBrandDetails() {
       }
     }, 50);
   });
+}
+
+// ==================== TREEMAP ====================
+
+function renderTreemap() {
+  const container = document.getElementById('treemapContainer');
+  if (!container) return;
+
+  const total = BRANDS_DATA.reduce((s,b) => s+b.budget, 0);
+  const data = BRANDS_DATA.map((b,i) => ({
+    name: b.name, value: b.budget, pct: b.share,
+    color: COLORS.brands[i % COLORS.brands.length]
+  }));
+
+  // Strip: one segment per brand, width = budget share
+  const strip = data.map(d =>
+    `<div class="mmap-seg" style="flex:${d.value};background:${d.color}" title="${d.name}: ${d.pct.toFixed(1)}%"></div>`
+  ).join('');
+
+  // Grid of brand cards
+  const cards = data.map((d, i) => `
+    <div class="mmap-item" title="${fmtFull(d.value)}">
+      <span class="mmap-rank">${i+1}</span>
+      <span class="mmap-swatch" style="background:${d.color}"></span>
+      <div class="mmap-info">
+        <div class="mmap-name">${d.name}</div>
+        <div class="mmap-meta">${d.pct.toFixed(1)}% · ${fmt(d.value)}</div>
+      </div>
+    </div>`
+  ).join('');
+
+  container.innerHTML = `
+    <div class="mmap-strip">${strip}</div>
+    <div class="mmap-grid">${cards}</div>`;
+}
+
+// ==================== BUBBLE CHART ====================
+
+function renderBubble() {
+  const canvas = document.getElementById('bubbleChart');
+  if (!canvas) return;
+  const data = BRANDS_DATA.filter(b => b.posts > 0).map((b,i) => ({
+    x: b.posts,
+    y: b.budget / 1000000,
+    r: Math.max(Math.sqrt(b.budget / b.posts) / 12, 5),
+    label: b.name,
+    color: COLORS.brands[i % COLORS.brands.length]
+  }));
+
+  new Chart(canvas, {
+    type: 'bubble',
+    data: {
+      datasets: data.map(d => ({
+        label: d.label,
+        data: [{ x: d.x, y: d.y, r: Math.min(d.r, 30) }],
+        backgroundColor: d.color + '55',
+        borderColor: d.color,
+        borderWidth: 1.5,
+      }))
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const d = ctx.raw;
+              return `${ctx.dataset.label}: ${d.x} постов · ${d.y.toFixed(1)} млн ₽`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Количество постов', color: '#8B90A7' }, grid: { color: '#E2E6EF' }, ticks: { color: '#8B90A7' } },
+        y: { title: { display: true, text: 'Бюджет, млн ₽', color: '#8B90A7' }, grid: { color: '#E2E6EF' }, ticks: { color: '#8B90A7', callback: v => v + ' млн' } }
+      }
+    }
+  });
+
+  // Draw brand labels on canvas after render
+  setTimeout(() => {
+    const ctx = canvas.getContext('2d');
+    const chart = Chart.getChart(canvas);
+    if (!chart) return;
+    data.forEach(d => {
+      const meta = chart.getDatasetMeta(chart.data.datasets.findIndex(ds => ds.label === d.label));
+      if (meta && meta.data[0]) {
+        const pt = meta.data[0];
+        ctx.save();
+        ctx.font = '10px system-ui';
+        ctx.fillStyle = '#8B90A7';
+        ctx.textAlign = 'center';
+        ctx.fillText(d.label, pt.x, pt.y - (Math.min(d.r, 30) + 6));
+        ctx.restore();
+      }
+    });
+  }, 200);
+}
+
+// ==================== HEATMAP ====================
+
+function renderHeatmap() {
+  const container = document.getElementById('heatmapContainer');
+  if (!container) return;
+
+  const brands = Object.keys(MONTHLY_BRANDS);
+  const months = MONTHS;
+
+  // Find max for color scale
+  let maxVal = 0;
+  brands.forEach(b => MONTHLY_BRANDS[b].forEach(v => { if (v > maxVal) maxVal = v; }));
+
+  function heatColor(val) {
+    if (!val) return 'rgba(230,234,244,.6)';
+    const t = val / maxVal;
+    // dark blue → accent blue → orange
+    if (t < 0.3) return `rgba(43,108,230,${0.12 + t * 1.5})`;
+    if (t < 0.7) return `rgba(43,108,230,${0.4 + t * 0.5})`;
+    return `rgba(240,112,32,${0.5 + t * 0.5})`;
+  }
+
+  let html = `<table class="heatmap-table"><thead><tr>
+    <th style="text-align:left">Бренд</th>
+    ${months.map(m => `<th>${m}</th>`).join('')}
+    <th>Итого</th>
+  </tr></thead><tbody>`;
+
+  brands.forEach(brand => {
+    const vals = MONTHLY_BRANDS[brand];
+    const total = vals.reduce((s,v) => s+v, 0);
+    if (!total) return;
+    html += `<tr>
+      <td class="heatmap-brand">${brand}</td>
+      ${vals.map(v => `<td><div class="heatmap-cell" style="background:${heatColor(v)}" title="${brand} ${fmt(v)}">${v > 500000 ? fmt(v) : ''}</div></td>`).join('')}
+      <td style="padding:4px 12px;font-size:12px;font-weight:600;color:var(--muted)">${fmt(total)}</td>
+    </tr>`;
+  });
+
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+// ==================== TIMELINE ====================
+
+function renderTimeline() {
+  const container = document.getElementById('timelineContainer');
+  if (!container) return;
+
+  const brands = Object.keys(MONTHLY_BRANDS).filter(b => MONTHLY_BRANDS[b].some(v => v > 0));
+  const months = MONTHS;
+
+  let html = `<div class="timeline-wrap">
+    <div class="timeline-months">
+      ${months.map(m => `<div class="timeline-month-label">${m}</div>`).join('')}
+    </div>`;
+
+  brands.forEach((brand, bi) => {
+    const vals = MONTHLY_BRANDS[brand];
+    const totalBrand = vals.reduce((s,v) => s+v, 0);
+    if (!totalBrand) return;
+    const color = COLORS.brands[bi % COLORS.brands.length];
+    const maxVal = Math.max(...vals);
+
+    html += `<div class="timeline-row">
+      <div class="timeline-label">${brand}</div>
+      <div class="timeline-track">`;
+
+    vals.forEach((v, mi) => {
+      if (!v) return;
+      const left = (mi / 6) * 100;
+      const width = (1 / 6) * 100;
+      const opacity = 0.3 + (v / maxVal) * 0.7;
+      html += `<div class="timeline-bar" style="left:${left}%;width:${width}%;background:${color};opacity:${opacity}" title="${brand} ${months[mi]}: ${fmt(v)}">
+        ${v > maxVal * 0.5 ? fmt(v) : ''}
+      </div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  html += '</div>';
+  container.innerHTML = html;
 }
 
 // ==================== NAVIGATION ====================
@@ -1763,7 +1974,16 @@ function showSection(id) {
 
 // ==================== INIT ====================
 
-document.addEventListener('DOMContentLoaded', initCharts);
+document.addEventListener('DOMContentLoaded', () => {
+  initCharts();
+  // Defer layout-dependent renders slightly
+  setTimeout(() => {
+    renderTreemap();
+    renderBubble();
+    renderHeatmap();
+    renderTimeline();
+  }, 100);
+});
 </script>
 </body>
 </html>
