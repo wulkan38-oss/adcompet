@@ -2275,7 +2275,12 @@ function renderCreativeGrid(posts, brand, angle, platform, sort) {
       <div class="cr-text">${displayText}</div>
       <div class="cr-footer">
         <span class="cr-views">${eyeSVG} ${p.viewsRaw || '—'}</span>
-        ${p.url && p.url !== '#' ? `<a class="cr-link" href="${p.url}" target="_blank">Открыть →</a>` : ''}
+        ${(()=>{
+          const u = p.url;
+          if (!u || u === '#') return '';
+          const isPost = /t\.me\/[^\/]+\/\d+/.test(u) || /youtube\.com\/watch/.test(u) || /vkvideo\.ru\/video[\-\d_]+/.test(u);
+          return `<a class="cr-link" href="${u}" target="_blank">${isPost ? '→ Пост' : '→ Канал'}</a>`;
+        })()}
       </div>
     </div>`;
   }).join('');
