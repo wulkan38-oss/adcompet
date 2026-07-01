@@ -1228,7 +1228,7 @@ const ALL_CATEGORIES = [
 
 const BRAND_DETAILS = {
   'EXEED': {
-    budget: 22091846, posts: 4162, country: 'Chery Automobile Co.',
+    budget: 22091846, postCount: 4162, country: 'Chery Automobile Co.',
     platforms: { TG: 93, VK: 2, YouTube: 5, Rutube: 0 },
     monthly: [1596502, 2104314, 3042372, 5878018, 5616428, 3854212],
     insight: 'EXEED ставит на массовость через TG: 4162 поста — 81% всех размещений рынка. Средний пост: ~5 300 ₽. В октябре бренд впервые вышел на YouTube (ПриветТачка, 1,77M подписчиков) с интеграцией по 586K ₽ за ролик — попытка охватить аудиторию за пределами TG-пузыря.',
@@ -1239,7 +1239,7 @@ const BRAND_DETAILS = {
     ]
   },
   'HAVAL': {
-    budget: 4512320, posts: 500, country: 'Great Wall Motors',
+    budget: 4512320, postCount: 500, country: 'Great Wall Motors',
     platforms: { TG: 45, VK: 31, YouTube: 24, Rutube: 0 },
     monthly: [723044, 309795, 240019, 269215, 643870, 2326377],
     insight: 'В июле–ноябре HAVAL работал почти исключительно через TG. Но декабрь — полный разворот: VK (60%) + YouTube (34%). Параллельно — нестандартное размещение: Twitch-стример just_ns за 1,44 млн ₽. Это единственный пример Twitch-интеграции во всей выборке — ставка на молодую геймерскую аудиторию.',
@@ -1249,7 +1249,7 @@ const BRAND_DETAILS = {
     ]
   },
   'ЛАДА': {
-    budget: 5492202, posts: 103, country: 'АвтоВАЗ, Россия',
+    budget: 5492202, postCount: 103, country: 'АвтоВАЗ, Россия',
     platforms: { TG: 35, VK: 47, YouTube: 17, Rutube: 2 },
     monthly: [639996, 478975, 1101778, 249708, 261761, 2759984],
     insight: 'ЛАДА — единственный бренд с доминированием VK (47% бюджета). Декабрьский вирус: новогоднее VK-видео «автомобиль Деда Мороза» собрало 6,65 млн просмотров за 2,12 млн ₽ = 0,32 ₽/просмотр. Лучший CPV в выборке. Стратегия «один мощный VK-ролик» переигрывает сотни TG-постов по эффективности охвата.',
@@ -1260,7 +1260,7 @@ const BRAND_DETAILS = {
     ]
   },
   'OMODA': {
-    budget: 4037020, posts: 80, country: 'Chery Automobile Co.',
+    budget: 4037020, postCount: 80, country: 'Chery Automobile Co.',
     platforms: { TG: 49, VK: 50, YouTube: 0, Rutube: 0 },
     monthly: [2211378, 267333, 94426, 971224, 407174, 85485],
     insight: 'OMODA использовала паттерн «VK-запуск → TG-поддержка»: в июле 92% бюджета ушло в одно VK-видео (2,04 млн ₽, 277K просмотров). Это был совместный слот с ORA 03 в том же канале — оба бренда Chery купили место у одного VK-паблика одновременно, заплатив по 2 млн каждый.',
@@ -1270,7 +1270,7 @@ const BRAND_DETAILS = {
     ]
   },
   'JAECOO': {
-    budget: 4662368, posts: 45, country: 'Chery Automobile Co.',
+    budget: 4662368, postCount: 45, country: 'Chery Automobile Co.',
     platforms: { TG: 14, VK: 20, YouTube: 66, Rutube: 0 },
     monthly: [192581, 1607646, 242460, 2438082, 175395, 6204],
     insight: 'JAECOO — единственный бренд с доминированием YouTube (66% бюджета). Ставка на авто-блогеров с широкой аудиторией: ролик на 794K просмотров (0,87 ₽/просмотр). Это «качество vs количество» в прямой оппозиции стратегии EXEED. Пик в октябре (2,44 млн ₽) — осенние акции J7.',
@@ -1280,7 +1280,7 @@ const BRAND_DETAILS = {
     ]
   },
   'ORA': {
-    budget: 4590472, posts: 51, country: 'Great Wall Motors',
+    budget: 4590472, postCount: 51, country: 'Great Wall Motors',
     platforms: { TG: 80, VK: 14, YouTube: 6, Rutube: 0 },
     monthly: [0, 3101951, 1461910, 0, 18900, 7711],
     insight: 'ORA сосредоточила 76% бюджета на одной модели — ORA 03. В августе совместное VK-размещение с OMODA C5 (обе модели Chery/GWM в одном VK-канале = единовременная покупка 4+ млн ₽). ORA 03 GT — второстепенный продукт в посевах. Геймплей на стиль: ретро-дизайн, игра с цветами кузова.',
@@ -1290,7 +1290,7 @@ const BRAND_DETAILS = {
     ]
   },
   'CHERY': {
-    budget: 786036, posts: 40, country: 'Chery Automobile Co.',
+    budget: 786036, postCount: 40, country: 'Chery Automobile Co.',
     platforms: { TG: 100, VK: 0, YouTube: 0, Rutube: 0 },
     monthly: [215398, 98708, 64308, 13418, 393000, 1204],
     insight: 'CHERY — 100% TG, строгий фокус на TIGGO 9. Ноябрьская кампания 393K ₽ = запуск флагмана. Тексты постов — анонсы «скоро выйдет», создание ажиотажа перед дилерским запуском. Минимальный бюджет означает тестирование канала без масштабирования.',
@@ -1299,7 +1299,7 @@ const BRAND_DETAILS = {
     ]
   },
   'JETOUR': {
-    budget: 781589, posts: 34, country: 'Chery Automobile Co.',
+    budget: 781589, postCount: 34, country: 'Chery Automobile Co.',
     platforms: { TG: 32, VK: 0, YouTube: 42, Rutube: 25 },
     monthly: [249132, 278570, 46800, 0, 0, 207087],
     insight: 'JETOUR — неожиданный игрок на Rutube (25% бюджета): единственный бренд с заметной долей на этой платформе. YouTube-интеграции нативные: блогеры упоминают JETOUR в контексте другого контента (промокоды, летний контент). Пауза в октябре–ноябре — возможная смена медиастратегии.',
@@ -1309,7 +1309,7 @@ const BRAND_DETAILS = {
     ]
   },
   'МОСКВИЧ': {
-    budget: 415591, posts: 14, country: 'Россия (JAC)',
+    budget: 415591, postCount: 14, country: 'Россия (JAC)',
     platforms: { TG: 100, VK: 0, YouTube: 0, Rutube: 0 },
     monthly: [58308, 43054, 23097, 54748, 156924, 79460],
     insight: 'МОСКВИЧ — 100% TG, равномерный небольшой бюджет весь период. Стратегия поддерживающих посевов без пиков. Ставка на автомобильные TG-каналы (ДТП Дорог, За Рулём). Бренд не вкладывается в дорогие интеграции — сигнал ограниченного медиабюджета или осторожного тестирования.',
@@ -1319,7 +1319,7 @@ const BRAND_DETAILS = {
     ]
   },
   'GAC': {
-    budget: 593546, posts: 7, country: 'GAC Group, Китай',
+    budget: 593546, postCount: 7, country: 'GAC Group, Китай',
     platforms: { TG: 52, VK: 0, YouTube: 48, Rutube: 0 },
     monthly: [498660, 0, 0, 55384, 39502, 0],
     insight: 'GAC — 7 постов при бюджете 593K ₽ = средний чек 84 800 ₽ за пост. Это топ-2 по CPP после VOYAH. Ставка на дорогие YouTube-интеграции: ролик на канале Wylsared (технологии) собрал 290K просмотров. GAC GS3 позиционируется через tech-аудиторию — нетипично для авторынка.',
@@ -1329,7 +1329,7 @@ const BRAND_DETAILS = {
     ]
   },
   'GEELY': {
-    budget: 303637, posts: 19, country: 'Geely Holding, Китай',
+    budget: 303637, postCount: 19, country: 'Geely Holding, Китай',
     platforms: { TG: 100, VK: 0, YouTube: 0, Rutube: 0 },
     monthly: [80361, 67093, 5270, 32797, 35631, 82485],
     insight: 'GEELY — полностью TG-стратегия, lifestyle-позиционирование через деловую аудиторию. Посты делают акцент не на технических характеристиках, а на имидже: "деловой стиль", "мечты из детства". Минимальный бюджет — возможно, тест нового позиционирования на российском рынке.',
@@ -1687,7 +1687,7 @@ function initBrandDetails() {
       <div class="grid-2">
         <div class="card">
           <div class="card-title">${name} · Платформы</div>
-          <div class="card-sub">${d.country} · Бюджет: ${fmtFull(d.budget)} · Постов: ${d.posts}</div>
+          <div class="card-sub">${d.country} · Бюджет: ${fmtFull(d.budget)} · Постов: ${d.postCount}</div>
           <div class="chart-wrap">
             <canvas id="${canvasId}"></canvas>
           </div>
