@@ -377,6 +377,7 @@
     <button class="nav-btn" onclick="showSection('monthly')">Динамика</button>
     <button class="nav-btn" onclick="showSection('categories')">Категории</button>
     <button class="nav-btn" onclick="showSection('deep')">Бренды</button>
+    <button class="nav-btn" onclick="showSection('recs')" style="color:var(--accent);font-weight:600">Рекомендации</button>
   </nav>
   <div class="header-meta">Июль–Декабрь 2024 · Посевы в соцсетях</div>
 </header>
@@ -765,6 +766,346 @@
 
   <div class="brand-tabs" id="brandTabs"></div>
   <div id="brandDetails"></div>
+</section>
+
+<!-- ===================== RECOMMENDATIONS ===================== -->
+<section id="recs" class="section">
+  <div class="section-header">
+    <h2>Рекомендации и выводы</h2>
+    <p>Стратегические выводы из анализа · Июль–Декабрь 2024 · 55,8 млн ₽ · 22 бренда</p>
+  </div>
+
+  <!-- ГЛАВНЫЕ ВЫВОДЫ -->
+  <div class="card" style="background:var(--dark);border-color:var(--dark);color:var(--white);margin-bottom:24px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#94A3B8;margin-bottom:10px">Вывод 1 · Концентрация</div>
+        <div style="font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px">1 бренд = 40% рынка</div>
+        <div style="font-size:13px;color:#CBD5E1;line-height:1.6">EXEED единолично формирует ландшафт посевного рынка. Конкуренты работают в условиях информационного давления от одного игрока.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#94A3B8;margin-bottom:10px">Вывод 2 · Эффективность</div>
+        <div style="font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px">VK × 100 = TG</div>
+        <div style="font-size:13px;color:#CBD5E1;line-height:1.6">Одно VK-размещение стоит как 100 TG-постов, но даёт сопоставимый охват. Большинство брендов недооценивают этот канал.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#94A3B8;margin-bottom:10px">Вывод 3 · Сезонность</div>
+        <div style="font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px">Ноябрь = пик битвы</div>
+        <div style="font-size:13px;color:#CBD5E1;line-height:1.6">12,1 млн ₽ в ноябре — абсолютный максимум. Декабрь — затишье. Бренды, уходящие в декабрь, получают аудиторию без конкурентного шума.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МАТРИЦА СТРАТЕГИЙ -->
+  <div class="card">
+    <div class="card-title">Матрица стратегий · Выбери свой квадрант</div>
+    <div class="card-sub">В зависимости от бюджета и цели кампании</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px">
+
+      <div style="border:2px solid #2563EB;border-radius:12px;padding:20px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <div style="background:#2563EB;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">МАЛЫЙ БЮДЖЕТ · ОХВАТ</div>
+        </div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px">TG-посевы · до 500K ₽/мес</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.7">
+          <b>Стратегия EXEED-light:</b> массовые размещения в тематических TG-каналах (Транспорт, Блоги). Средний CPP 5–15K ₽. Нужны 30–50 каналов одновременно для заметного эффекта.<br><br>
+          <b>Фокус моделей:</b> одна модель, один месседж. Пример: CHERY TIGGO 9 — 100% TG, 786K ₽, 40 постов.<br><br>
+          <b>Осторожно:</b> без VK/YouTube кампания остаётся внутри TG-пузыря — аудитория ≠ покупатели авто.
+        </div>
+        <div style="margin-top:12px;padding:10px;background:var(--accent-light);border-radius:8px;font-size:12px;color:var(--accent)">
+          <b>Пример из данных:</b> CHERY, МОСКВИЧ, GEELY
+        </div>
+      </div>
+
+      <div style="border:2px solid #10B981;border-radius:12px;padding:20px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <div style="background:#10B981;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">МАЛЫЙ БЮДЖЕТ · КОНВЕРСИЯ</div>
+        </div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px">YouTube-интеграция · 1–3 ролика</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.7">
+          <b>Стратегия JAECOO:</b> 1–2 крупных YouTube-интеграции с авто-блогерами (500K–2M подписчиков). CPV 0,87 ₽/просмотр — дешевле большинства платных форматов.<br><br>
+          <b>Выбор канала:</b> транспортная тематика — высокая конверсия в тест-драйв. Аудитория уже «тёплая».<br><br>
+          <b>Плюс:</b> контент живёт в поиске YouTube. TG-пост умирает за 24 часа.
+        </div>
+        <div style="margin-top:12px;padding:10px;background:#F0FDF4;border-radius:8px;font-size:12px;color:#15803D">
+          <b>Пример из данных:</b> JAECOO (66% YouTube), GAC (Wylsared)
+        </div>
+      </div>
+
+      <div style="border:2px solid #F59E0B;border-radius:12px;padding:20px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <div style="background:#F59E0B;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">БОЛЬШОЙ БЮДЖЕТ · ОХВАТ</div>
+        </div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px">VK Видео · 1–3 млн ₽/запуск</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.7">
+          <b>Стратегия ЛАДА:</b> одно сильное VK-видео на запуск или сезонную кампанию. 6,65M просмотров за 2,1 млн ₽ = 0,32 ₽/просмотр — лучший CPV в выборке.<br><br>
+          <b>Условие успеха:</b> вирусный потенциал контента. Новогоднее видео ЛАДЫ зашло потому, что у неё был понятный эмоциональный крючок.<br><br>
+          <b>TG как поддержка:</b> добавить 20–30 TG-постов для усиления после запуска видео.
+        </div>
+        <div style="margin-top:12px;padding:10px;background:#FFFBEB;border-radius:8px;font-size:12px;color:#B45309">
+          <b>Пример из данных:</b> ЛАДА декабрь, OMODA июль (VK-старт)
+        </div>
+      </div>
+
+      <div style="border:2px solid #8B5CF6;border-radius:12px;padding:20px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <div style="background:#8B5CF6;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">БОЛЬШОЙ БЮДЖЕТ · ДОМИНИРОВАНИЕ</div>
+        </div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px">TG-машина + YouTube + VK</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.7">
+          <b>Стратегия EXEED:</b> 3–5 млн ₽/мес, масштабные TG-посевы (100+ каналов) создают фоновый шум, YouTube-интеграции дают доверие, VK — массовый охват за рамками TG.<br><br>
+          <b>Риск:</b> при CPP 5K ₽ качество площадок непредсказуемо. EXEED размещается в каналах любой тематики — от «Кино» до «Эротика».<br><br>
+          <b>Улучшение:</b> добавить whitelist-фильтрацию. Сэкономит 20–30% бюджета без потери охвата.
+        </div>
+        <div style="margin-top:12px;padding:10px;background:#F5F3FF;border-radius:8px;font-size:12px;color:#6D28D9">
+          <b>Пример из данных:</b> EXEED 22 млн ₽, HAVAL 4,5 млн ₽
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЧТО РАБОТАЕТ / НЕ РАБОТАЕТ -->
+  <div class="grid-2">
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <div style="width:10px;height:10px;background:#10B981;border-radius:50%"></div>
+        <div class="card-title" style="margin-bottom:0">Что работает</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:12px">
+          <div style="font-size:18px;flex-shrink:0">📹</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:3px">VK Видео как вирусный инструмент</div>
+            <div style="font-size:12px;color:var(--muted)">ЛАДА: 6,65M просмотров за 2,1 млн ₽. Одно размещение = вся TG-кампания за квартал по охвату.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="font-size:18px;flex-shrink:0">🎯</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:3px">YouTube-обзоры у авто-блогеров</div>
+            <div style="font-size:12px;color:var(--muted)">JAECOO: 794K просмотров на ПриветТачке, контент живёт в поиске. Аудитория с покупательским намерением.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="font-size:18px;flex-shrink:0">🗓️</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:3px">Декабрь — окно с нулевой конкуренцией</div>
+            <div style="font-size:12px;color:var(--muted)">Все уходят. ЛАДА осталась одна и взяла всё внимание. В декабре бюджет работает в 2–3× эффективнее.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="font-size:18px;flex-shrink:0">🎭</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:3px">Нетематические каналы с правильной аудиторией</div>
+            <div style="font-size:12px;color:var(--muted)">GAC в tech-канале Wylsared: 290K просмотров, аудитория — платёжеспособные мужчины 25–40. Транспорт-канал даёт меньше.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="font-size:18px;flex-shrink:0">📦</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:3px">Модельный фокус (одна модель = весь бюджет)</div>
+            <div style="font-size:12px;color:var(--muted)">OMODA C5 = 90% бюджета OMODA. ORA 03 = 76% бюджета ORA. Фокус работает лучше распыления.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <div style="width:10px;height:10px;background:#EF4444;border-radius:50%"></div>
+        <div class="card-title" style="margin-bottom:0">Что не работает / недооценено</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:12px">
+          <div style="font-size:18px;flex-shrink:0">🔴</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:3px">TG без whitelist-фильтрации</div>
+            <div style="font-size:12px;color:var(--muted)">EXEED размещается в каналах «Эротика», «Даркнет», «Шок-контент». 20–30% бюджета уходит в нерелевантную среду, портящую бренд.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="font-size:18px;flex-shrink:0">🟡</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:3px">Rutube — деньги на ветер</div>
+            <div style="font-size:12px;color:var(--muted)">373K ₽ бюджета, 9 размещений, 114K просмотров (CPV 3,3 ₽). Это в 10 раз дороже VK и в 4 раза дороже YouTube по охвату.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="font-size:18px;flex-shrink:0">🟡</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:3px">Параллельный запуск всего модельного ряда</div>
+            <div style="font-size:12px;color:var(--muted)">EXEED продвигает TXL, RX, VX, LX одновременно. Потребитель не запоминает ничего конкретного. Фокус на флагмане дал бы больший recall.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="font-size:18px;flex-shrink:0">🔴</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:3px">Игнорирование октября конкурентами EXEED</div>
+            <div style="font-size:12px;color:var(--muted)">В октябре EXEED вложил 5,9 млн ₽ и занял всё информационное пространство. Конкуренты провалились — их голоса не слышно.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="font-size:18px;flex-shrink:0">🟡</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;margin-bottom:3px">Только TG-стратегия = TG-пузырь</div>
+            <div style="font-size:12px;color:var(--muted)">МОСКВИЧ, GEELY, CHERY = 100% TG. Аудитория TG-каналов частично пересекается — одни и те же люди видят рекламу 10 раз подряд.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ПЛАТФОРМЕННЫЕ РЕКОМЕНДАЦИИ -->
+  <div class="card">
+    <div class="card-title">Рекомендации по платформам</div>
+    <div class="card-sub">Когда и как использовать каждый канал</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px">
+      <div style="border-radius:10px;overflow:hidden">
+        <div style="background:#229ED9;padding:12px 14px">
+          <div style="color:#fff;font-weight:700;font-size:14px">Telegram</div>
+          <div style="color:rgba(255,255,255,.8);font-size:11px;margin-top:2px">6 450 ₽ / пост avg</div>
+        </div>
+        <div style="background:#E8F4FD;padding:14px;font-size:12px;color:#0B6A9E;line-height:1.7">
+          <b>Когда:</b> поддерживающий флайт, старт кампании, анонс акций<br><br>
+          <b>Минимум для эффекта:</b> 30–50 каналов одновременно<br><br>
+          <b>Категории:</b> Транспорт + Блоги (54%) — ядро. Добавить Бизнес, Экономику для B2B аудитории<br><br>
+          <b>Исключить:</b> Шок, Эротика, Даркнет
+        </div>
+      </div>
+      <div style="border-radius:10px;overflow:hidden">
+        <div style="background:#0077FF;padding:12px 14px">
+          <div style="color:#fff;font-weight:700;font-size:14px">VK</div>
+          <div style="color:rgba(255,255,255,.8);font-size:11px;margin-top:2px">642 215 ₽ / пост avg</div>
+        </div>
+        <div style="background:#E8F0FF;padding:14px;font-size:12px;color:#004FAA;line-height:1.7">
+          <b>Когда:</b> запуск модели, сезонная кампания, вирусный потенциал<br><br>
+          <b>Формат:</b> видео 30–90 сек. Статика и карусели работают хуже в 3–5×<br><br>
+          <b>CPV норма:</b> 0,3–0,9 ₽/просмотр — хорошо. Выше 2 ₽ — пересмотреть<br><br>
+          <b>Аудитория:</b> шире TG, включая «несетевых» покупателей 35–55
+        </div>
+      </div>
+      <div style="border-radius:10px;overflow:hidden">
+        <div style="background:#FF0000;padding:12px 14px">
+          <div style="color:#fff;font-weight:700;font-size:14px">YouTube</div>
+          <div style="color:rgba(255,255,255,.8);font-size:11px;margin-top:2px">269 308 ₽ / пост avg</div>
+        </div>
+        <div style="background:#FFF0F0;padding:14px;font-size:12px;color:#B91C1C;line-height:1.7">
+          <b>Когда:</b> тест-драйв, сравнение с конкурентами, запуск новинки<br><br>
+          <b>Формат:</b> интеграция внутри обзора (не преролл) — CTR выше в 4–6×<br><br>
+          <b>Выбор блогера:</b> авто-тематика = высокая конверсия. Tech и lifestyle = новая аудитория<br><br>
+          <b>Плюс:</b> SEO-эффект — видео индексируется и даёт трафик 6–12 мес
+        </div>
+      </div>
+      <div style="border-radius:10px;overflow:hidden">
+        <div style="background:#94A3B8;padding:12px 14px">
+          <div style="color:#fff;font-weight:700;font-size:14px">Rutube</div>
+          <div style="color:rgba(255,255,255,.8);font-size:11px;margin-top:2px">3,3 ₽ / просмотр avg</div>
+        </div>
+        <div style="background:#F1F5F9;padding:14px;font-size:12px;color:#475569;line-height:1.7">
+          <b>Когда:</b> только если требует юридическая или закупочная политика (госзаказ, «российский контент»)<br><br>
+          <b>CPV:</b> в 10× хуже VK, в 4× хуже YouTube<br><br>
+          <b>Аудитория:</b> узкая, специфическая. Слабо пересекается с авторынком<br><br>
+          <b>Рекомендация:</b> перераспределить бюджет на VK или YouTube
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ВРЕМЕННЫЕ ОКНА -->
+  <div class="card">
+    <div class="card-title">Календарь активности · Когда выходить</div>
+    <div class="card-sub">На основе анализа сезонных паттернов конкурентов</div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:12px">
+      <div style="text-align:center">
+        <div style="background:#FEF3C7;border-radius:8px;padding:12px 8px;margin-bottom:8px">
+          <div style="font-size:13px;font-weight:700;color:#B45309">Июль</div>
+          <div style="font-size:11px;color:#92400E;margin-top:4px">6,8 млн ₽</div>
+          <div style="font-size:10px;color:#A16207;margin-top:6px;line-height:1.5">Умеренная конкуренция. Хорошо для запуска новых моделей.</div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="background:#FEE2E2;border-radius:8px;padding:12px 8px;margin-bottom:8px">
+          <div style="font-size:13px;font-weight:700;color:#B91C1C">Август</div>
+          <div style="font-size:11px;color:#991B1B;margin-top:4px">10,2 млн ₽</div>
+          <div style="font-size:10px;color:#7F1D1D;margin-top:6px;line-height:1.5">Высокий шум. ORA и ЛАДА активны. Нужен большой бюджет для заметности.</div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="background:#DCFCE7;border-radius:8px;padding:12px 8px;margin-bottom:8px">
+          <div style="font-size:13px;font-weight:700;color:#15803D">Сентябрь</div>
+          <div style="font-size:11px;color:#166534;margin-top:4px">6,9 млн ₽</div>
+          <div style="font-size:10px;color:#14532D;margin-top:6px;line-height:1.5">Спад после августа. Хорошее окно для точечных YouTube-интеграций.</div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="background:#FEE2E2;border-radius:8px;padding:12px 8px;margin-bottom:8px">
+          <div style="font-size:13px;font-weight:700;color:#B91C1C">Октябрь</div>
+          <div style="font-size:11px;color:#991B1B;margin-top:4px">10,1 млн ₽</div>
+          <div style="font-size:10px;color:#7F1D1D;margin-top:6px;line-height:1.5">EXEED-доминирование. Без 3+ млн ₽ голос не слышен.</div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="background:#FEE2E2;border-radius:8px;padding:12px 8px;margin-bottom:8px">
+          <div style="font-size:13px;font-weight:700;color:#B91C1C">Ноябрь</div>
+          <div style="font-size:11px;color:#991B1B;margin-top:4px">12,2 млн ₽</div>
+          <div style="font-size:10px;color:#7F1D1D;margin-top:6px;line-height:1.5">Абсолютный пик. Битва всех со всеми. Только с сильным креативом.</div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <div style="background:#DCFCE7;border-radius:8px;padding:12px 8px;margin-bottom:8px">
+          <div style="font-size:13px;font-weight:700;color:#15803D">Декабрь</div>
+          <div style="font-size:11px;color:#166534;margin-top:4px">9,6 млн ₽</div>
+          <div style="font-size:10px;color:#14532D;margin-top:6px;line-height:1.5">Большинство уходят. Низкий шум → высокая заметность. Лучшее окно для VK-запуска.</div>
+        </div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:16px">
+      <div class="insight-label">Главная рекомендация по времени</div>
+      <p><strong>Июль + Декабрь — недооценённые окна.</strong> В эти месяцы конкуренты минимально активны, а медиа-инфляция ниже. Бренд, входящий в рынок в июле, платит за внимание в 1,8× меньше, чем в ноябре. ЛАДА это поняла — и взяла декабрь практически в одиночку.</p>
+    </div>
+  </div>
+
+  <!-- ИТОГОВЫЕ РЕКОМЕНДАЦИИ ПО ТИПУ БРЕНДА -->
+  <div class="card">
+    <div class="card-title">Рекомендации по типу бренда</div>
+    <div class="card-sub">Что делать в зависимости от позиции на рынке</div>
+    <div style="display:flex;flex-direction:column;gap:0">
+
+      <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px">
+        <div style="background:#2563EB;width:6px;flex-shrink:0"></div>
+        <div style="padding:16px 20px;flex:1">
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px">Бренд-доминант (EXEED-уровень, 20+ млн ₽/год)</div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.7">Приоритет — качество, а не объём. Внедрить whitelist по категориям (убрать Эротика, Шок, Даркнет). Добавить VK-видео (сейчас 1–2% против 26% рынка в целом) и YouTube-флагман 2–3 раза в год. Равномерно распределить бюджет по месяцам вместо октябрьской концентрации — это снизит CPP и увеличит частоту контакта.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px">
+        <div style="background:#10B981;width:6px;flex-shrink:0"></div>
+        <div style="padding:16px 20px;flex:1">
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px">Бренд-претендент (3–8 млн ₽/год, HAVAL/JAECOO/OMODA уровень)</div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.7">Не пытаться конкурировать с EXEED в TG по объёму — проиграете. Выбрать одну платформу как главную (YouTube или VK) и стать там лидером. JAECOO показал: 4 млн ₽ в YouTube дают больший recall, чем 4 млн ₽ в TG-посевах. Избегать октябрь и ноябрь — уйти в сентябрь и декабрь.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px">
+        <div style="background:#F59E0B;width:6px;flex-shrink:0"></div>
+        <div style="padding:16px 20px;flex:1">
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px">Малый игрок (до 1 млн ₽/год, МОСКВИЧ/GEELY/CHERY уровень)</div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.7">Один мощный удар лучше постоянного шёпота. Сконцентрировать весь бюджет в 1–2 месяца, выбрать 1 платформу (VK или YouTube), 1 модель. Если 100% TG — минимум 30 каналов одновременно, иначе незаметно. Тест: октябрь–ноябрь — нет смысла выходить против 12M ₽ шума. Декабрь — лучший момент.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="background:#8B5CF6;width:6px;flex-shrink:0"></div>
+        <div style="padding:16px 20px;flex:1">
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px">Новый бренд (выход на рынок)</div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.7">Зайти через нетематические каналы с правильной аудиторией (Tech, Бизнес, Lifestyle) — там меньше конкурентов. Крупный YouTube-запуск (1 видео на 300–500K ₽) для формирования знания, потом поддержка в TG. Модельный фокус обязателен: один автомобиль = одно позиционирование. Смотреть на OMODA (VK-запуск в июле) как на образец: зашли тихо, пока все отдыхали.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </section>
 
 </main>
