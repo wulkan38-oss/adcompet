@@ -295,6 +295,60 @@
   .post-views { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
   .post-views svg { opacity: .6; flex-shrink: 0; }
 
+  /* CREATIVES */
+  .angle-matrix { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+  .angle-matrix th { padding: 8px 12px; font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; text-align: center; border-bottom: 1px solid var(--border); }
+  .angle-matrix th.brand-col { text-align: left; }
+  .angle-matrix td { padding: 5px 6px; text-align: center; }
+  .angle-matrix td.brand-label { text-align: left; padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--text); white-space: nowrap; }
+  .angle-cell {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 100%; height: 32px; border-radius: 6px;
+    font-size: 11px; font-weight: 700; cursor: pointer;
+    transition: filter .15s, transform .1s;
+    border: 1.5px solid transparent;
+  }
+  .angle-cell:hover { filter: brightness(.9); transform: scale(1.05); }
+  .angle-cell.active-filter { outline: 2px solid var(--text); outline-offset: 1px; }
+  .angle-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+  .angle-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+  .angle-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  .cr-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .cr-chip {
+    padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 500;
+    border: 1px solid var(--border); background: var(--bg2); color: var(--muted);
+    cursor: pointer; transition: all .15s;
+  }
+  .cr-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .cr-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .cr-sort { display: flex; gap: 6px; margin-left: auto; }
+  .cr-sort-btn { padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; border: 1px solid var(--border); background: var(--bg2); color: var(--muted); cursor: pointer; }
+  .cr-sort-btn.active { background: var(--bg3); color: var(--text); }
+
+  .cr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .cr-card {
+    border: 1px solid var(--border); border-radius: 12px; padding: 16px;
+    background: var(--bg2); display: flex; flex-direction: column; gap: 10px;
+    transition: box-shadow .15s, border-color .15s;
+  }
+  .cr-card:hover { box-shadow: var(--shadow); border-color: var(--accent); }
+  .cr-card-top { display: flex; align-items: center; gap: 8px; }
+  .cr-brand-tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+  .cr-angle-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 5px; margin-left: auto; }
+  .cr-channel { font-size: 12px; font-weight: 600; color: var(--text); }
+  .cr-text { font-size: 12px; color: var(--muted); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
+  .cr-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+  .cr-views { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: var(--text); }
+  .cr-views svg { opacity: .5; }
+  .cr-link { font-size: 12px; font-weight: 600; color: var(--accent); text-decoration: none; }
+  .cr-link:hover { text-decoration: underline; }
+  .cr-empty { text-align: center; padding: 48px; color: var(--muted); font-size: 14px; grid-column: 1/-1; }
+
+  @media (max-width: 900px) { .cr-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .cr-grid { grid-template-columns: 1fr; } }
+
   /* NUM */
   .num { font-variant-numeric: tabular-nums; }
 
@@ -323,6 +377,7 @@
     <button class="nav-btn" onclick="showSection('monthly')">Динамика</button>
     <button class="nav-btn" onclick="showSection('categories')">Категории</button>
     <button class="nav-btn" onclick="showSection('deep')">Бренды</button>
+    <button class="nav-btn" onclick="showSection('creatives')">Креативы</button>
     <button class="nav-btn" onclick="showSection('recs')" style="color:var(--accent);font-weight:600">Рекомендации</button>
   </nav>
   <div class="header-meta">Июль–Декабрь 2024 · Посевы в соцсетях</div>
@@ -1101,6 +1156,39 @@
     </div>
   </div>
 
+</section>
+
+<!-- ===================== CREATIVES ===================== -->
+<section id="creatives" class="section">
+  <div class="section-header">
+    <h2>Анализ креативов</h2>
+    <p>Какие углы используют бренды и какие посты получают наибольший охват</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Матрица креативных углов</div>
+    <div class="card-sub">Количество постов каждого типа по брендам · кликни на ячейку чтобы отфильтровать галерею</div>
+    <div style="overflow-x:auto;margin-top:8px">
+      <table class="angle-matrix" id="angleMatrix"></table>
+    </div>
+    <div class="angle-legend" id="angleLegend" style="margin-top:16px"></div>
+    <div class="insight">
+      <div class="insight-label">Как читать</div>
+      <p>Насыщенность цвета = доля постов данного угла у бренда. Кликни на ячейку → галерея ниже покажет только эти посты. Кликни повторно — сбросить фильтр.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+      <div class="card-title" style="margin-bottom:0">Топ-посты</div>
+      <div class="cr-sort" id="crSort">
+        <button class="cr-sort-btn active" data-sort="views">По просмотрам</button>
+        <button class="cr-sort-btn" data-sort="alpha">По бренду</button>
+      </div>
+    </div>
+    <div class="cr-filters" id="crFilters"></div>
+    <div class="cr-grid" id="crGrid"></div>
+  </div>
 </section>
 
 </main>
@@ -1976,14 +2064,204 @@ function showSection(id) {
 
 document.addEventListener('DOMContentLoaded', () => {
   initCharts();
-  // Defer layout-dependent renders slightly
   setTimeout(() => {
     renderTreemap();
     renderBubble();
     renderHeatmap();
     renderTimeline();
   }, 100);
+  initCreatives();
 });
+
+// ==================== CREATIVES ====================
+
+const ANGLES = [
+  { id: 'price',     label: 'Цена / акция',      color: '#10A96E', keywords: ['цен','скидк','акци','руб','₽','выгод','предложен','стоимост','тариф','рассрочк','кредит'] },
+  { id: 'product',   label: 'Характеристики',     color: '#2B6CE6', keywords: ['двигател','мощност','комплектац','характеристик','оснащ','технолог','клиренс','привод','объём','литр','кузов','салон','багажник','функц'] },
+  { id: 'lifestyle', label: 'Образ жизни',        color: '#7C5CBF', keywords: ['путешеств','семья','жизн','стиль','дизайн','красот','свобод','город','природ','поездк','adventures','lifestyle','inspired'] },
+  { id: 'review',    label: 'Тест-драйв / обзор', color: '#F07020', keywords: ['тест','обзор','впечатлен','управляем','проехал','попробов','за рулём','первый взгляд','мнение','review'] },
+  { id: 'news',      label: 'Анонс / новость',    color: '#0A95C8', keywords: ['новинк','анонс','запуск','выход','старт','дебют','представля','новая модел','официальн','скоро','уже в продаж'] },
+  { id: 'contest',   label: 'Конкурс / вирал',    color: '#E8A800', keywords: ['разыгрыв','конкурс','выигр','подписч','участ','призов','розыгрыш','репост','отмет','победит'] },
+];
+
+function classifyPost(text) {
+  if (!text) return 'other';
+  const t = text.toLowerCase();
+  for (const a of ANGLES) {
+    if (a.keywords.some(k => t.includes(k))) return a.id;
+  }
+  return 'other';
+}
+
+function parseViews(str) {
+  if (!str) return 0;
+  const s = String(str).replace(/\s/g,'').replace(',','.');
+  if (s.includes('M') || s.includes('м')) return parseFloat(s) * 1000000;
+  if (s.includes('K') || s.includes('к') || s.includes('т')) return parseFloat(s) * 1000;
+  return parseInt(s) || 0;
+}
+
+function initCreatives() {
+  // Collect all posts from BRAND_DETAILS
+  const allPosts = [];
+  Object.entries(BRAND_DETAILS).forEach(([brand, d], bi) => {
+    (d.posts || []).forEach(p => {
+      allPosts.push({
+        brand,
+        brandColor: COLORS.brands[bi % COLORS.brands.length],
+        platform: p.platform,
+        channel: p.channel,
+        text: p.text,
+        viewsRaw: p.views,
+        viewsNum: parseViews(p.views),
+        url: p.url,
+        angle: classifyPost(p.text),
+      });
+    });
+  });
+
+  // ── Matrix ──────────────────────────────────────────────────────────────────
+  const brands = Object.keys(BRAND_DETAILS);
+  const angleIds = ANGLES.map(a => a.id);
+
+  // Count per brand × angle
+  const counts = {};
+  brands.forEach(b => { counts[b] = {}; angleIds.forEach(id => counts[b][id] = 0); });
+  allPosts.forEach(p => { if (counts[p.brand]) counts[p.brand][p.angle] = (counts[p.brand][p.angle]||0) + 1; });
+
+  // Max per brand for normalisation
+  const brandMax = {};
+  brands.forEach(b => { brandMax[b] = Math.max(...angleIds.map(id => counts[b][id]), 1); });
+
+  let matrixHTML = '<thead><tr><th class="brand-col">Бренд</th>';
+  ANGLES.forEach(a => { matrixHTML += `<th title="${a.label}">${a.label.split(' ')[0]}</th>`; });
+  matrixHTML += '</tr></thead><tbody>';
+
+  brands.forEach(b => {
+    matrixHTML += `<tr><td class="brand-label">${b}</td>`;
+    ANGLES.forEach(a => {
+      const n = counts[b][a.id] || 0;
+      const intensity = n / brandMax[b];
+      const bg = n > 0
+        ? `${a.color}${Math.round(intensity * 180 + 30).toString(16).padStart(2,'0')}`
+        : 'var(--bg3)';
+      const textCol = intensity > 0.5 ? '#fff' : (n > 0 ? a.color : 'var(--muted)');
+      matrixHTML += `<td><div class="angle-cell"
+        style="background:${bg};color:${textCol};border-color:${n>0?a.color+'33':'transparent'}"
+        data-brand="${b}" data-angle="${a.id}"
+        onclick="filterCreatives('${b}','${a.id}')"
+        title="${b} · ${a.label}: ${n} постов">${n > 0 ? n : ''}</div></td>`;
+    });
+    matrixHTML += '</tr>';
+  });
+  matrixHTML += '</tbody>';
+  document.getElementById('angleMatrix').innerHTML = matrixHTML;
+
+  // Legend
+  const legendEl = document.getElementById('angleLegend');
+  legendEl.innerHTML = ANGLES.map(a =>
+    `<div class="angle-legend-item">
+      <div class="angle-dot" style="background:${a.color}"></div>
+      <span>${a.label}</span>
+    </div>`
+  ).join('') + `<div class="angle-legend-item">
+    <div class="angle-dot" style="background:var(--border)"></div><span>Другое / смешанный</span></div>`;
+
+  // ── Filters ─────────────────────────────────────────────────────────────────
+  const filtersEl = document.getElementById('crFilters');
+  const platformSet = [...new Set(allPosts.map(p => p.platform))];
+
+  filtersEl.innerHTML = `<button class="cr-chip active" data-brand="all" onclick="filterCreatives('all','all')">Все бренды</button>`
+    + brands.map(b => `<button class="cr-chip" data-brand="${b}" onclick="filterCreatives('${b}','all')">${b}</button>`).join('')
+    + `<div style="width:1px;background:var(--border);margin:0 4px"></div>`
+    + platformSet.map(p => `<button class="cr-chip" data-platform="${p}" onclick="filterCreatives('all','all','${p}')">${p}</button>`).join('');
+
+  // ── Sort ──────────────────────────────────────────────────────────────────
+  document.querySelectorAll('.cr-sort-btn').forEach(btn => {
+    btn.onclick = function() {
+      document.querySelectorAll('.cr-sort-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      renderCreativeGrid(allPosts, window._crFilterBrand||'all', window._crFilterAngle||'all', window._crFilterPlatform||'all', this.dataset.sort);
+    };
+  });
+
+  // Initial render
+  window._crAllPosts = allPosts;
+  window._crFilterBrand = 'all';
+  window._crFilterAngle = 'all';
+  window._crFilterPlatform = 'all';
+  renderCreativeGrid(allPosts, 'all', 'all', 'all', 'views');
+}
+
+function filterCreatives(brand, angle, platform) {
+  // Toggle matrix cell active state
+  document.querySelectorAll('.angle-cell').forEach(el => el.classList.remove('active-filter'));
+  if (brand !== 'all' && angle !== 'all') {
+    const cell = document.querySelector(`.angle-cell[data-brand="${brand}"][data-angle="${angle}"]`);
+    if (cell) {
+      if (window._crFilterBrand === brand && window._crFilterAngle === angle) {
+        brand = 'all'; angle = 'all'; // toggle off
+      } else {
+        cell.classList.add('active-filter');
+      }
+    }
+  }
+
+  window._crFilterBrand = brand;
+  window._crFilterAngle = angle;
+  if (platform !== undefined) window._crFilterPlatform = platform;
+
+  // Update chip styles
+  document.querySelectorAll('.cr-chip[data-brand]').forEach(el => {
+    el.classList.toggle('active', el.dataset.brand === brand || (brand === 'all' && el.dataset.brand === 'all'));
+  });
+  document.querySelectorAll('.cr-chip[data-platform]').forEach(el => {
+    el.classList.toggle('active', el.dataset.platform === window._crFilterPlatform);
+  });
+
+  const sort = document.querySelector('.cr-sort-btn.active')?.dataset.sort || 'views';
+  renderCreativeGrid(window._crAllPosts, brand, angle, window._crFilterPlatform, sort);
+}
+
+function renderCreativeGrid(posts, brand, angle, platform, sort) {
+  let filtered = posts.filter(p => {
+    if (brand !== 'all' && p.brand !== brand) return false;
+    if (angle !== 'all' && p.angle !== angle) return false;
+    if (platform && platform !== 'all' && p.platform !== platform) return false;
+    return true;
+  });
+
+  if (sort === 'views') filtered.sort((a,b) => b.viewsNum - a.viewsNum);
+  else filtered.sort((a,b) => a.brand.localeCompare(b.brand));
+
+  const eyeSVG = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+  const platClass = p => p === 'TG' ? 'pill-tg' : p === 'VK' ? 'pill-vk' : p === 'YouTube' ? 'pill-yt' : 'pill-ru';
+  const angleInfo = id => ANGLES.find(a => a.id === id) || { label: 'Другое', color: '#94A3B8' };
+
+  const grid = document.getElementById('crGrid');
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="cr-empty">Нет постов по выбранным фильтрам</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => {
+    const ai = angleInfo(p.angle);
+    const pillCl = platClass(p.platform);
+    return `<div class="cr-card">
+      <div class="cr-card-top">
+        <span class="platform-pill ${pillCl}">${p.platform}</span>
+        <span class="cr-brand-tag" style="background:${p.brandColor}15;color:${p.brandColor}">${p.brand}</span>
+        <span class="cr-angle-tag" style="background:${ai.color}12;color:${ai.color}">${ai.label}</span>
+      </div>
+      <div class="cr-channel">${p.channel}</div>
+      <div class="cr-text">${p.text || '—'}</div>
+      <div class="cr-footer">
+        <span class="cr-views">${eyeSVG} ${p.viewsRaw || '—'}</span>
+        ${p.url && p.url !== '#' ? `<a class="cr-link" href="${p.url}" target="_blank">Открыть →</a>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
 </script>
 </body>
 </html>
