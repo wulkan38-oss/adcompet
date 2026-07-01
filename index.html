@@ -332,13 +332,14 @@
     border: 1px solid var(--border); border-radius: 12px; padding: 16px;
     background: var(--bg2); display: flex; flex-direction: column; gap: 10px;
     transition: box-shadow .15s, border-color .15s;
+    min-width: 0; overflow: hidden; word-break: break-word;
   }
   .cr-card:hover { box-shadow: var(--shadow); border-color: var(--accent); }
   .cr-card-top { display: flex; align-items: center; gap: 8px; }
   .cr-brand-tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
   .cr-angle-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 5px; margin-left: auto; }
   .cr-channel { font-size: 12px; font-weight: 600; color: var(--text); }
-  .cr-text { font-size: 12px; color: var(--muted); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
+  .cr-text { font-size: 12px; color: var(--muted); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; word-break: break-word; overflow-wrap: break-word; }
   .cr-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
   .cr-views { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: var(--text); }
   .cr-views svg { opacity: .5; }
@@ -2240,9 +2241,26 @@ function renderCreativeGrid(posts, brand, angle, platform, sort) {
     return;
   }
 
-  grid.innerHTML = filtered.map(p => {
+  // Strip HTML tags from text, skip URL-only posts
+  function cleanText(t) {
+    if (!t) return '—';
+    const stripped = t.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    // Skip if just a URL or too short
+    if (!stripped || stripped.startsWith('http') || stripped.startsWith('>') || stripped.length < 10) return null;
+    return stripped;
+  }
+
+  const validPosts = filtered.filter(p => cleanText(p.text) !== null);
+
+  if (!validPosts.length) {
+    grid.innerHTML = `<div class="cr-empty">Нет постов по выбранным фильтрам</div>`;
+    return;
+  }
+
+  grid.innerHTML = validPosts.map(p => {
     const ai = angleInfo(p.angle);
     const pillCl = platClass(p.platform);
+    const displayText = cleanText(p.text);
     return `<div class="cr-card">
       <div class="cr-card-top">
         <span class="platform-pill ${pillCl}">${p.platform}</span>
@@ -2250,7 +2268,7 @@ function renderCreativeGrid(posts, brand, angle, platform, sort) {
         <span class="cr-angle-tag" style="background:${ai.color}12;color:${ai.color}">${ai.label}</span>
       </div>
       <div class="cr-channel">${p.channel}</div>
-      <div class="cr-text">${p.text || '—'}</div>
+      <div class="cr-text">${displayText}</div>
       <div class="cr-footer">
         <span class="cr-views">${eyeSVG} ${p.viewsRaw || '—'}</span>
         ${p.url && p.url !== '#' ? `<a class="cr-link" href="${p.url}" target="_blank">Открыть →</a>` : ''}
